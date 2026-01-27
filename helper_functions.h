@@ -397,6 +397,7 @@ void calc_chi2(TH1D* h_model, TH1D* h_data, TH2D* cov, double &chi, int &ndof, d
 			double diffj = h_data_clone->GetBinContent(j+1) - h_model_clone->GetBinContent(j+1);
 			double LocalChi = diffi * inverse_cov_m[i][j] * diffj; 
 			chi += LocalChi;
+
 		}
 
 	}

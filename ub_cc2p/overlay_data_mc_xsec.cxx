@@ -305,8 +305,8 @@ void overlay_data_mc_xsec() {
 				//c_trans_mat_ac_ar23.SaveAs("debug_pdf/c_trans_mat_ac_ar23_"+PlotNames[iplot]+".pdf");						
 
 				// Applying the smearing: Cov' = A * Cov^T * A^T
-				TMatrixD smeared_mat_cov_ar23 = mat_Ac * trans_mat_cov_ar23 * trans_mat_Ac;
-				//TMatrixD smeared_mat_cov_ar23 = trans_mat_cov_ar23;	// wrong !!! fix it			
+				//TMatrixD smeared_mat_cov_ar23 = mat_Ac * trans_mat_cov_ar23 * trans_mat_Ac;
+				TMatrixD smeared_mat_cov_ar23 = trans_mat_cov_ar23;	// wrong !!! fix it			
 
 				//TCanvas c_smeared_mat_cov_ar23("c_smeared_mat_cov_ar23", "c_smeared_mat_cov_ar23", 800, 800);
 				//smeared_mat_cov_ar23.Draw("COLZ TEXT");   // COLZ = color map, TEXT = numbers

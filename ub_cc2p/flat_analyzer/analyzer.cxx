@@ -43,7 +43,8 @@ void analyzer::Loop() {
 	double Units = 1E38; // so that the extracted cross-section is in 10^{-38} cm^{2}
 	double A = 40.; // so that we can have xsecs per nucleus
 
-	int NInte = 6; // Interaction processes: All, QE, MEC, RES, DIS, COH
+ 	int NInte = 1; // Interaction processes: All, QE, MEC, RES, DIS, COH   
+	//int NInte = 6; // Interaction processes: All, QE, MEC, RES, DIS, COH
 	std::vector<TString> InteractionLabels = {"","QE","MEC","RES","DIS","COH"};
 
 	//----------------------------------------//	
@@ -58,9 +59,6 @@ void analyzer::Loop() {
 
 	TFile* file = new TFile(FileNameAndPath,"recreate");
 
-	std::cout << std::endl << "------------------------------------------------" << std::endl << std::endl;
-	std::cout << "File " << FileNameAndPath << " to be created" << std::endl << std::endl;
-
 	//----------------------------------------//
 
 	TFile* syst_file = nullptr;
@@ -74,13 +72,14 @@ void analyzer::Loop() {
 	if (fOutputFile == "AR23" && fweights != "" && findex != -1) {
 
 		TString syst_file_path = "/pnfs/sbnd/persistent/users/apapadop/GENIETweakedSamples/v3_6_2_AR23_20i_00_000/syst_14_1000180400_CC_v3_6_2_AR23_20i_00_000.root";
-		syst_file = TFile::Open(syst_file_path,"readonly");
+		syst_file = TFile::Open(syst_file_path,"readonly");      
 
 	  	syst_ttree = (TTree*)syst_file->Get("events");
+        fChain->AddFriend(syst_ttree);
 
-	  	syst_ttree->SetBranchAddress("ntweaks_" + fweights, &ntweaks);	
-	  	syst_ttree->SetBranchAddress("tweak_responses_" + fweights, &tweak_responses);	
-	  	syst_ttree->SetBranchAddress("paramCVWeight_" + fweights, &paramCVWeight);						
+	  	fChain->SetBranchAddress("ntweaks_" + fweights, &ntweaks);	
+	  	fChain->SetBranchAddress("tweak_responses_" + fweights, &tweak_responses);	
+	  	fChain->SetBranchAddress("paramCVWeight_" + fweights, &paramCVWeight);						
 
 	}
 
@@ -120,182 +119,150 @@ void analyzer::Loop() {
 
 	//----------------------------------------//
 	
-	// Loop over the events
-	cout << "nentries = " << nentries << endl;
-	for (Long64_t jentry=0; jentry<nentries;jentry++) {
+    const bool use_syst =
+        (fOutputFile == "AR23" && fweights != "" && findex != -1);
 
-	  //----------------------------------------//	
-	
-	  Long64_t ientry = LoadTree(jentry);
-	  if (ientry < 0) break; nb = fChain->GetEntry(jentry); nbytes += nb;
+    vector<int> ProtonID;
+    vector<int> MuonID;
+    ProtonID.reserve(4);
+    MuonID.reserve(2);
 
-	  // syst unc only for AR23
-	  if (fOutputFile == "AR23" && fweights != "" && findex != -1) {
+    for (Long64_t jentry = 0; jentry < nentries; ++jentry) {
 
-	  	Long64_t syst_ientry = syst_ttree->LoadTree(jentry);
-	  	syst_nb = syst_ttree->GetEntry(jentry); syst_nbytes += syst_nb; 
+        Long64_t ientry = LoadTree(jentry);
+        if (ientry < 0) break;
 
-	  }
+        fChain->GetEntry(jentry);
 
-	  if (jentry%1000 == 0) std::cout << jentry/1000 << " k " << std::setprecision(3) << double(jentry)/nentries*100. << " %"<< std::endl;	  
+        double syst_weight = 1.0;
+        if (use_syst) syst_weight = tweak_responses[findex];
 
-	  //----------------------------------------//	
+        const double weight = fScaleFactor * Units * A * Weight * syst_weight;
 
-	  double syst_weight = 1.;
+        // ---------------- Signal selection ----------------
 
-	  if (fOutputFile == "AR23" && fweights != "" && findex != -1) {
+        if (PDGLep != 13) continue;
 
-		syst_weight = tweak_responses[findex];
+        int ProtonTagging = 0, ChargedPionTagging = 0;
+        int NeutralPionTagging = 0, MuonTagging = 0;
 
-	}
+        ProtonID.clear();
+        MuonID.clear();
 
-	  //----------------------------------------//			
+        for (int i = 0; i < nfsp; ++i) {
 
-	  double weight = fScaleFactor*Units*A*Weight*syst_weight;	
+            const double px_i = px[i];
+            const double py_i = py[i];
+            const double pz_i = pz[i];
 
-	  //----------------------------------------//	
+            const double pf2 = px_i*px_i + py_i*py_i + pz_i*pz_i;
+            const double pf  = std::sqrt(pf2);
 
-	  // Signal definition
+            const int pdg_i = pdg[i];
 
-	  if (PDGLep != 13) { continue; } // make sure that we have only a muon in the final state
+            if (pdg_i == 13 && (pf > 0.1 && pf < 1.2)) {
+                ++MuonTagging;
+                MuonID.push_back(i);
+            }
 
-	  int ProtonTagging = 0, ChargedPionTagging = 0, NeutralPionTagging = 0, MuonTagging = 0, TrueHeavierMesonCounter = 0;
-	  int ElectronTagging = 0, PhotonTagging = 0;
-	  vector <int> ProtonID; ProtonID.clear();
-	  vector <int> MuonID; MuonID.clear();		
+            if (pdg_i == 2212 && (pf > 0.3 && pf < 1.0)) {
+                ++ProtonTagging;
+                ProtonID.push_back(i);
+            }
 
-	  //----------------------------------------//	
+            if (std::abs(pdg_i) == 211 && pf > 0.065) {
+                ++ChargedPionTagging;
+            }
 
-	  // Loop over the final state particles / post FSI
+            if (pdg_i == 111) {
+                ++NeutralPionTagging;
+            }
+        }
 
-	  for (int i = 0; i < nfsp; i++) {
-		
-	    double pf = TMath::Sqrt( px[i]*px[i] + py[i]*py[i] + pz[i]*pz[i]);
-	  
-            if (pdg[i] == 13 && (pf > 0.1 && pf < 1.2) ) {
+        if (!(ProtonTagging == 2 &&
+            ChargedPionTagging == 0 &&
+            NeutralPionTagging == 0 &&
+            MuonTagging == 1)) continue;
 
-			MuonTagging ++;
-			MuonID.push_back(i);
+        // ---------------- Interaction classification ----------------
 
-	    }
+        int genie_mode = -1;
+        if (fOutputFile == "ACHILLES") {
+            genie_mode = 1;
+        } else {
+            const int m = std::abs(Mode);
+            if      (m == 1) genie_mode = 1;
+            else if (m == 2) genie_mode = 2;
+            else if (m == 10 || m == 11 || m == 12 ||
+                    m == 13 || m == 17 || m == 22 || m == 23)
+                genie_mode = 3;
+            else if (m == 21 || m == 26)
+                genie_mode = 4;
+            else if (m == 16)
+                genie_mode = 5;
+            else
+                continue;
+        }
 
-	    if (pdg[i] == 2212 && (pf > 0.3 && pf < 1.) ) {
+        ++CounterEventsPassedSelection;
 
-	      ProtonTagging ++;
-	      ProtonID.push_back(i);
+        // ---------------- Kinematics (no ROOT objects) ----------------
 
-	      double eff_mass = TMath::Sqrt(E[i]*E[i] - pf*pf);
+        const int imu = MuonID[0];
+        const int ip1 = ProtonID[0];
+        const int ip2 = ProtonID[1];
 
-	    }
+        const double px_mu = px[imu], py_mu = py[imu], pz_mu = pz[imu];
+        const double px_p1 = px[ip1], py_p1 = py[ip1], pz_p1 = pz[ip1];
+        const double px_p2 = px[ip2], py_p2 = py[ip2], pz_p2 = pz[ip2];
 
-	    if (fabs(pdg[i]) == 211 && pf > 0.065)  {
+        const double px_sum = px_p1 + px_p2;
+        const double py_sum = py_p1 + py_p2;
+        const double pz_sum = pz_p1 + pz_p2;
 
-	      ChargedPionTagging ++;
+        const double protomn_sum_mag2 =
+            px_sum*px_sum + py_sum*py_sum + pz_sum*pz_sum;
+        const double muon_mag2 =
+            px_mu*px_mu + py_mu*py_mu + pz_mu*pz_mu;
 
-	    }
+        if (protomn_sum_mag2 == 0 || muon_mag2 == 0) continue;
 
-	    if (pdg[i] == 111)  {
+        const double DeltaPT = std::sqrt(px_sum*px_sum + py_sum*py_sum);
 
-	      NeutralPionTagging ++;
+        const double mu_dot_sum =
+            px_mu*px_sum + py_mu*py_sum + pz_mu*pz_sum;
 
-	    }
+        const double costheta_mu_sump =
+            mu_dot_sum / std::sqrt(muon_mag2 * protomn_sum_mag2);
 
-	  } // End of the loop over the final state particles / post FSI
+        const double pl_dot_pr =
+            px_p1*px_p2 + py_p1*py_p2 + pz_p1*pz_p2;
 
-	  //----------------------------------------//	
+        const double pl_mag2 =
+            px_p1*px_p1 + py_p1*py_p1 + pz_p1*pz_p1;
+        const double pr_mag2 =
+            px_p2*px_p2 + py_p2*py_p2 + pz_p2*pz_p2;
 
-	  // Classify the events based on the interaction type
+        if (pl_mag2 == 0 || pr_mag2 == 0) continue;
 
-	  // https://arxiv.org/pdf/2106.15809.pdf
+        const double costheta_pl_pr =
+            pl_dot_pr / std::sqrt(pl_mag2 * pr_mag2);
 
-	  int genie_mode = -1.;
+        double DeltaPT_fill = DeltaPT;
+        if (DeltaPT_fill > ArrayNBinsDeltaPT[NBinsDeltaPT]) {
+            DeltaPT_fill =
+                0.5 * (ArrayNBinsDeltaPT[NBinsDeltaPT] +
+                    ArrayNBinsDeltaPT[NBinsDeltaPT - 1]);
+        }
 
-	  if (fOutputFile ==  "ACHILLES") {
+        // ---------------- Fill histograms ----------------
 
-	    genie_mode = 1; // ACHILLES has only QE for now
+        TrueSingleBinPlot[0]->Fill(0.5, weight);
+        TrueDeltaPTPlot[0]->Fill(DeltaPT_fill, weight);
+        TrueCosThetaMuSumPPlot[0]->Fill(costheta_mu_sump, weight);
+        TrueCosThetaPLPRPlot[0]->Fill(costheta_pl_pr, weight);
 
-	  } else {
-
-	    if (TMath::Abs(Mode) == 1) { genie_mode = 1; } // QE
-	    else if (TMath::Abs(Mode) == 2) { genie_mode = 2; } // MEC
-	    else if (
-		   TMath::Abs(Mode) == 10 ||
-		   TMath::Abs(Mode) == 11 || TMath::Abs(Mode) == 12 || TMath::Abs(Mode) == 13 ||
-		   TMath::Abs(Mode) == 17 || TMath::Abs(Mode) == 22 || TMath::Abs(Mode) == 23
-		   ) { genie_mode = 3; } // RES
-	    else if (TMath::Abs(Mode) == 21 || TMath::Abs(Mode) == 26) { genie_mode = 4; } // DIS
-	    else if (TMath::Abs(Mode) == 16) { genie_mode = 5;} // COH
-	    else { continue; }  
-
-	  }
-
-	  //----------------------------------------//	
-
-	  // If the signal definition post-FSI  is satisfied
-	  if ( ProtonTagging == 2 && ChargedPionTagging == 0 
-		&& NeutralPionTagging == 0 && MuonTagging == 1) { 
-
-	    CounterEventsPassedSelection++;
-
-	    // Kinematics of muon & proton in the final state
-
-	    TLorentzVector Muon4Vector(px[MuonID[0]], py[MuonID[0]], pz[MuonID[0]], E[MuonID[0]]);
-	    TLorentzVector PLProton4Vector(px[ProtonID[0]], py[ProtonID[0]], pz[ProtonID[0]], E[ProtonID[0]]);
-	    TLorentzVector PRProton4Vector(px[ProtonID[1]], py[ProtonID[1]], pz[ProtonID[1]], E[ProtonID[1]]);		
-	    TLorentzVector proton_sum = PLProton4Vector + PRProton4Vector;
-
-		TVector3 muon_v = Muon4Vector.Vect();
-		TVector3 pl_proton = PLProton4Vector.Vect();
-		TVector3 pr_proton = PRProton4Vector.Vect();		
-		TVector3 protomn_sum_v = proton_sum.Vect();
-
-		double muon_mag = muon_v.Mag();
-		double pl_proton_mag = pl_proton.Mag();
-		double pr_proton_mag = pr_proton.Mag();	
-		double protomn_sum_mag = protomn_sum_v.Mag();
-
-	    //----------------------------------------//
-
-	    // Variables of interest
-
-	    double DeltaPT = proton_sum.Pt();
-		double costheta_mu_sump =  muon_v.Dot(protomn_sum_v) / muon_mag / protomn_sum_mag;
-		double costheta_pl_pr =  pl_proton.Dot(pr_proton) / pl_proton_mag / pr_proton_mag;		
-	   
-		if (protomn_sum_mag == 0 || muon_mag == 0) continue;
-		if (pl_proton_mag == 0 || pr_proton_mag == 0) continue;
-
-	    //----------------------------------------//	
-
-	    // overflow
-        if (DeltaPT > ArrayNBinsDeltaPT[NBinsDeltaPT]) { 
-
-			DeltaPT = (ArrayNBinsDeltaPT[NBinsDeltaPT] + ArrayNBinsDeltaPT[NBinsDeltaPT-1])/2.; 
-
-		}
-
-	    //----------------------------------------//	
-
-	    TrueSingleBinPlot[0]->Fill(0.5,weight);			
-	    TrueDeltaPTPlot[0]->Fill(DeltaPT,weight);	
-	    TrueCosThetaMuSumPPlot[0]->Fill(costheta_mu_sump,weight);
-	    TrueCosThetaPLPRPlot[0]->Fill(costheta_pl_pr,weight);		
-		
-	    TrueSingleBinPlot[genie_mode]->Fill(0.5,weight);			
-	    TrueDeltaPTPlot[genie_mode]->Fill(DeltaPT,weight);	
-	    TrueCosThetaMuSumPPlot[genie_mode]->Fill(costheta_mu_sump,weight);
-	    TrueCosThetaPLPRPlot[genie_mode]->Fill(costheta_pl_pr,weight);			
-
-	  } // End of the post-FSI selection
-
-	  //----------------------------------------//
-	
-	} // End of the loop over the events
-
-	//----------------------------------------//	
-
-	std::cout << "Percetage of events passing the selection cuts = " << 
-	double(CounterEventsPassedSelection)/ double(nentries)*100. << " %" << std::endl; std::cout << std::endl;
+    }
 
 	//----------------------------------------//		
 
@@ -309,17 +276,26 @@ void analyzer::Loop() {
 	TrueCosThetaMuSumPPlot[0]->Write();
 	TrueCosThetaPLPRPlot[0]->Write();		
 
+    for (int inte = 0; inte < NInte; ++inte) {
+        delete TrueSingleBinPlot[inte];
+        delete TrueDeltaPTPlot[inte];
+        delete TrueCosThetaMuSumPPlot[inte];
+        delete TrueCosThetaPLPRPlot[inte];
+    }    
+
 	file->Close();	
-	fFile->Close();
-
 	delete file;
-	delete fFile;
 
-	std::cout << std::endl;
-	std::cout << "File " << FileNameAndPath +" has been created" << std::endl; 
-	std::cout << std::endl;
+    if (syst_file) {
 
-	std::cout << std::endl << "------------------------------------------------" << std::endl << std::endl;
+        fChain->RemoveFriend(syst_ttree);
+        syst_file->Close();
+        delete syst_file;
+        syst_file = nullptr;
+    
+    }  
+
+	std::cout << FileNameAndPath +" processed" << std::endl; 
 
 	//----------------------------------------//		
 

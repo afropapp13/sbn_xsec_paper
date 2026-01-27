@@ -264,7 +264,6 @@ void make_covariance() {
 
 							double diff_i = knob_plots[iplot][iknob][iuni]->GetBinContent(i) - cv_plots[iplot]->GetBinContent(i);
 							double diff_j = knob_plots[iplot][iknob][iuni]->GetBinContent(j) - cv_plots[iplot]->GetBinContent(j);
-
 							double cov_ij = diff_i * diff_j;
 
 							covariance.at(iplot).at(iknob)->SetBinContent(i, j, cov_ij);

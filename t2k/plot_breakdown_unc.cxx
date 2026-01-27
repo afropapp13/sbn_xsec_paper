@@ -29,12 +29,9 @@ void plot_breakdown_unc() {
 	//--------------------//
 
 	vector<TString> plot_names;
-	plot_names.push_back("TrueSingleBinPlot");	
-	plot_names.push_back("TrueMuonCosThetaPlot");	
-	plot_names.push_back("TrueDeltaPTPlot"); 
+	plot_names.push_back("TrueDeltaPTPlot");	
 	plot_names.push_back("TrueDeltaAlphaTPlot"); 
-	//plot_names.push_back("SerialTrueDeltaPT_DeltaAlphaTPlot");
-	//plot_names.push_back("SerialTrueDeltaAlphaT_DeltaPTPlot");
+	plot_names.push_back("TrueDeltaPhiTPlot");
 
 	const int nplots = plot_names.size();
 

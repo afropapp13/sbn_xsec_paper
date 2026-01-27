@@ -157,11 +157,11 @@ void FlatTreeAnalyzer::Init(TTree *tree)
 
    fChain->SetBranchAddress("Mode", &Mode, &b_Mode);
    fChain->SetBranchAddress("cc", &cc, &b_cc);
-   fChain->SetBranchAddress("PDGnu", &PDGnu, &b_PDGnu);
-   fChain->SetBranchAddress("Enu_true", &Enu_true, &b_Enu_true);
-   fChain->SetBranchAddress("tgt", &tgt, &b_tgt);
-   fChain->SetBranchAddress("tgta", &tgta, &b_tgta);
-   fChain->SetBranchAddress("tgtz", &tgtz, &b_tgtz);
+   //fChain->SetBranchAddress("PDGnu", &PDGnu, &b_PDGnu);
+   //fChain->SetBranchAddress("Enu_true", &Enu_true, &b_Enu_true);
+   //fChain->SetBranchAddress("tgt", &tgt, &b_tgt);
+   //fChain->SetBranchAddress("tgta", &tgta, &b_tgta);
+   //fChain->SetBranchAddress("tgtz", &tgtz, &b_tgtz);
    fChain->SetBranchAddress("PDGLep", &PDGLep, &b_PDGLep);
    fChain->SetBranchAddress("ELep", &ELep, &b_ELep);
    fChain->SetBranchAddress("CosLep", &CosLep, &b_CosLep);
@@ -169,19 +169,19 @@ void FlatTreeAnalyzer::Init(TTree *tree)
    fChain->SetBranchAddress("px", px, &b_px);
    fChain->SetBranchAddress("py", py, &b_py);
    fChain->SetBranchAddress("pz", pz, &b_pz);
-   fChain->SetBranchAddress("E", E, &b_E);
+   //fChain->SetBranchAddress("E", E, &b_E);
    fChain->SetBranchAddress("pdg", pdg, &b_pdg);
-   fChain->SetBranchAddress("px_init", px_init, &b_px_init);
-   fChain->SetBranchAddress("py_init", py_init, &b_py_init);
-   fChain->SetBranchAddress("pz_init", pz_init, &b_pz_init);
-   fChain->SetBranchAddress("E_init", E_init, &b_E_init);
-   fChain->SetBranchAddress("pdg_init", pdg_init, &b_pdg_init);
-   fChain->SetBranchAddress("nvertp", &nvertp, &b_nvertp);
-   fChain->SetBranchAddress("px_vert", px_vert, &b_px_vert);
-   fChain->SetBranchAddress("py_vert", py_vert, &b_py_vert);
-   fChain->SetBranchAddress("pz_vert", pz_vert, &b_pz_vert);
-   fChain->SetBranchAddress("E_vert", E_vert, &b_E_vert);
-   fChain->SetBranchAddress("pdg_vert", pdg_vert, &b_pdg_vert);
+   // fChain->SetBranchAddress("px_init", px_init, &b_px_init);
+   // fChain->SetBranchAddress("py_init", py_init, &b_py_init);
+   // fChain->SetBranchAddress("pz_init", pz_init, &b_pz_init);
+   // fChain->SetBranchAddress("E_init", E_init, &b_E_init);
+   // fChain->SetBranchAddress("pdg_init", pdg_init, &b_pdg_init);
+   // fChain->SetBranchAddress("nvertp", &nvertp, &b_nvertp);
+   // fChain->SetBranchAddress("px_vert", px_vert, &b_px_vert);
+   // fChain->SetBranchAddress("py_vert", py_vert, &b_py_vert);
+   // fChain->SetBranchAddress("pz_vert", pz_vert, &b_pz_vert);
+   // fChain->SetBranchAddress("E_vert", E_vert, &b_E_vert);
+   // fChain->SetBranchAddress("pdg_vert", pdg_vert, &b_pdg_vert);
    fChain->SetBranchAddress("Weight", &Weight, &b_Weight);
    fChain->SetBranchAddress("fScaleFactor", &fScaleFactor, &b_fScaleFactor);
 
