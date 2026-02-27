@@ -143,17 +143,17 @@ void overlay_data_mc_xsec() {
 		can.at(iplot) = new TCanvas(plot_name.at(iplot),plot_name.at(iplot),205,34,1024,768);
 		can.at(iplot)->cd();
 		can.at(iplot)->SetBottomMargin(0.16);
-		can.at(iplot)->SetTopMargin(0.1);
+		can.at(iplot)->SetTopMargin(0.125);
 		can.at(iplot)->SetLeftMargin(0.18);
 		can.at(iplot)->SetRightMargin(0.05);	
 		
 		//----------------------------------------//
 
-		leg.at(iplot) = new TLegend(0.05,0.91,0.95,0.98);
+		leg.at(iplot) = new TLegend(0.17,0.88,0.95,0.98);
 		leg.at(iplot)->SetBorderSize(0);
 		leg.at(iplot)->SetTextSize(text_size);
 		leg.at(iplot)->SetTextFont(text_font);
-		leg.at(iplot)->SetNColumns(3);
+		leg.at(iplot)->SetNColumns(2);
 		leg.at(iplot)->SetMargin(0.15);				
 
 		//----------------------------------------//
@@ -188,8 +188,7 @@ void overlay_data_mc_xsec() {
 		data_plot.at(iplot)->SetMarkerSize(1.);
 		data_plot.at(iplot)->SetMarkerStyle(20);
 		data_plot.at(iplot)->SetLineWidth(1);					
-
-		leg.at(iplot)->AddEntry(data_plot.at(iplot),"MicroBooNE Data","ep");					
+					
 		can.at(iplot)->cd();
 
 		data_plot.at(iplot)->Draw("e1x0 same");
@@ -218,14 +217,10 @@ void overlay_data_mc_xsec() {
 
 			Clone[imcsample]->SetLineWidth(3);		
 			Clone[imcsample]->Draw("hist same");		
-
-			calc_chi2(Clone[imcsample],data_plot.at(iplot),unfcov.at(iplot),Chi2[imcsample],Ndof[imcsample],pval[imcsample]);
-			TString Chi2NdofAlt = "(" + to_string_with_precision(Chi2[imcsample],1) + "/" + TString(std::to_string(Ndof[imcsample])) +")";
-
-			TLegendEntry* lGenie = leg.at(iplot)->AddEntry(Clone[imcsample],labels[imcsample] + Chi2NdofAlt,"l");
-			lGenie->SetTextColor(colors[imcsample]); 
 			
 			//----------------------------------------//
+
+			TString Chi2NdofAlt = "";			
 
 			// only for AR23, add systematics
 
@@ -360,12 +355,47 @@ void overlay_data_mc_xsec() {
 				// Draw symmetric error band ONLY
 				gerr->Draw("E2 same");
 
+				TH2D* cov_xsec = (TH2D*)cov_ar23_smeared->Clone();
+
+				// Clone Cov ONLY to inherit binning
+				TH2D* cov_xsec_rebinned = (TH2D*)unfcov.at(iplot)->Clone("cov_xsec_rebinned");
+				cov_xsec_rebinned->Reset();  // remove contents
+
+				// Copy bin contents by bin number
+				for (int i = 1; i <= unfcov.at(iplot)->GetNbinsX(); ++i) {
+					for (int j = 1; j <= unfcov.at(iplot)->GetNbinsY(); ++j) {
+						cov_xsec_rebinned->SetBinContent(i, j,
+							cov_xsec->GetBinContent(i, j));
+					}
+				}				
+
+				cov_xsec_rebinned->Add(unfcov.at(iplot));
+				// nominal covariance
+				calc_chi2(Clone[imcsample],data_plot.at(iplot),unfcov.at(iplot),Chi2[imcsample],Ndof[imcsample],pval[imcsample]);
+				double chi2_nom = Chi2[imcsample];
+				// nominal + xsec covariance
+				calc_chi2(Clone[imcsample],data_plot.at(iplot),cov_xsec_rebinned,Chi2[imcsample],Ndof[imcsample],pval[imcsample]);
+				double chi2_full = Chi2[imcsample];
+				Chi2NdofAlt = "(" + to_string_with_precision(chi2_nom,1) + "/" + TString(std::to_string(Ndof[imcsample])) +")"\
+				 + " [" + to_string_with_precision(chi2_full,1)+ + "/" + TString(std::to_string(Ndof[imcsample])) +"]";
+
 			}
+
+			else {
+
+				calc_chi2(Clone[imcsample],data_plot.at(iplot),unfcov.at(iplot),Chi2[imcsample],Ndof[imcsample],pval[imcsample]);
+				Chi2NdofAlt = "(" + to_string_with_precision(Chi2[imcsample],1) + "/" + TString(std::to_string(Ndof[imcsample])) +")";
+
+			}
+
+			TLegendEntry* lGenie = leg.at(iplot)->AddEntry(Clone[imcsample],labels[imcsample] + Chi2NdofAlt,"l");
+			lGenie->SetTextColor(colors[imcsample]); 			
 
 			//----------------------------------------//
 
 		}
 
+		leg.at(iplot)->AddEntry(data_plot.at(iplot),"MicroBooNE Data","ep");		
 		data_plot.at(iplot)->Draw("e1x0 same");
 		leg.at(iplot)->Draw();					
 

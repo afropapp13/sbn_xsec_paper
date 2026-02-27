@@ -60,21 +60,24 @@ void analyzer::Loop()
 
     double tweak_responses[7] = {1,1,1,1,1,1,1};
     int ntweaks = 0;
+    double paramCVWeight;
 
     if (fOutputFile == "AR23" && fweights != "" && findex != -1) {
 
         syst_file = TFile::Open(
-            "../mc_files/syst_14_1000180400_CC_v3_6_2_AR23_20i_00_000.root",
-            "READonly");
+            "/pnfs/sbnd/persistent/users/apapadop/GENIETweakedSamples/v3_6_2_AR23_20i_00_000/syst_14_1000180400_CC_v3_6_2_AR23_20i_00_000.root",
+            "READONLY");
 
         syst_tree = (TTree*)syst_file->Get("events");
 
         syst_tree->SetBranchStatus("*", 0);
         syst_tree->SetBranchStatus(("tweak_responses_" + fweights).Data(), 1);
         syst_tree->SetBranchStatus(("ntweaks_" + fweights).Data(), 1);
+        syst_tree->SetBranchStatus(("paramCVWeight_" + fweights).Data(), 1);        
 
         syst_tree->SetBranchAddress(("ntweaks_" + fweights).Data(), &ntweaks);
         syst_tree->SetBranchAddress(("tweak_responses_" + fweights).Data(), &tweak_responses);
+        syst_tree->SetBranchAddress(("paramCVWeight_" + fweights).Data(), &paramCVWeight);        
 
     }
 
@@ -156,14 +159,14 @@ void analyzer::Loop()
         if (findex >= 0) {
             
             syst_tree->GetEntry(i);    
-            //cout << "findex: " << findex << ", ntweaks: " << ntweaks << endl;            
             syst_weight = tweak_responses[findex];
-            //cout << "syst_weight: " << syst_weight << endl;
+            // tweak_responses[6] has the new CV
+            if (fweights.Contains("MvA")) { syst_weight = syst_weight/tweak_responses[6]; }
 
         }
 
-        const double weight =
-            fScaleFactor * Units * A * Weight * syst_weight;
+        double weight = fScaleFactor * Units * A * Weight * syst_weight;
+        if (std::isnan(weight)) { continue; }
 
         TLorentzVector mu4(px[mu], py[mu], pz[mu], E[mu]);
         TLorentzVector pr4(px[pr], py[pr], pz[pr], E[pr]);
@@ -199,6 +202,6 @@ void analyzer::Loop()
     outfile->Close();
     if (syst_file) syst_file->Close();
 
-    cout << outname << " processed" << endl;
+    cout << endl << outname << " processed" << endl;
 
 }

@@ -79,7 +79,6 @@ void set_unc_from_cov(TH2D* cov, TH1D* h) {
 
 }
 
-
 //---------------------------//
 
 TH1D* get_frac_unc_from_cov(TH2D* cov, TH1D* h) {

@@ -242,15 +242,10 @@ void overlay_data_mc_xsec() {
 
 			Clone[WhichSample-1]->SetLineWidth(3);		
 			Clone[WhichSample-1]->Draw("hist same");		
-
-			calc_chi2(Clone[WhichSample-1],PlotsFullUncReco[0][WhichPlot],Cov,Chi2[WhichSample],Ndof[WhichSample],pval[WhichSample]);
-			TString Chi2NdofAlt = "(" + to_string_with_precision(Chi2[WhichSample],1) + "/" + TString(std::to_string(Ndof[WhichSample])) +")";
-			if (PlotNames[WhichPlot] == "MuonCosThetaSingleBinPlot") { Chi2NdofAlt = ""; } 
-
-			TLegendEntry* lGenie = leg->AddEntry(Clone[WhichSample-1],Labels[WhichSample] + Chi2NdofAlt,"l");
-			lGenie->SetTextColor(Colors[WhichSample]); 
 			
 			//----------------------------------------//
+
+			TString Chi2NdofAlt = "";
 
 			// only for AR23, add systematics
 
@@ -386,7 +381,41 @@ void overlay_data_mc_xsec() {
 				// Draw symmetric error band ONLY
 				gerr->Draw("E2 same");
 
+				TH2D* cov_xsec = (TH2D*)cov_ar23_smeared->Clone();
+
+				// Clone Cov ONLY to inherit binning
+				TH2D* cov_xsec_rebinned = (TH2D*)Cov->Clone("cov_xsec_rebinned");
+				cov_xsec_rebinned->Reset();  // remove contents
+
+				// Copy bin contents by bin number
+				for (int i = 1; i <= Cov->GetNbinsX(); ++i) {
+					for (int j = 1; j <= Cov->GetNbinsY(); ++j) {
+						cov_xsec_rebinned->SetBinContent(i, j,
+							cov_xsec->GetBinContent(i, j));
+					}
+				}				
+
+				cov_xsec_rebinned->Add(Cov);
+				// nominal covariance
+				calc_chi2(Clone[WhichSample-1],PlotsFullUncReco[0][WhichPlot],Cov,Chi2[WhichSample],Ndof[WhichSample],pval[WhichSample]);
+				double chi2_nom = Chi2[WhichSample];
+				// nominal + xsec covariance
+				calc_chi2(Clone[WhichSample-1],PlotsFullUncReco[0][WhichPlot],cov_xsec_rebinned,Chi2[WhichSample],Ndof[WhichSample],pval[WhichSample]);
+				double chi2_full = Chi2[WhichSample];
+				Chi2NdofAlt = "(" + to_string_with_precision(chi2_nom,1) + "/" + TString(std::to_string(Ndof[WhichSample])) +")"\
+				 + " [" + to_string_with_precision(chi2_full,1)+ + "/" + TString(std::to_string(Ndof[WhichSample])) +"]";
+
 			}
+
+			else {  
+
+				calc_chi2(Clone[WhichSample-1],PlotsFullUncReco[0][WhichPlot],Cov,Chi2[WhichSample],Ndof[WhichSample],pval[WhichSample]);
+				Chi2NdofAlt = "(" + to_string_with_precision(Chi2[WhichSample],1) + "/" + TString(std::to_string(Ndof[WhichSample])) +")";
+
+			}
+
+			TLegendEntry* lGenie = leg->AddEntry(Clone[WhichSample-1],Labels[WhichSample] + Chi2NdofAlt,"l");
+			lGenie->SetTextColor(Colors[WhichSample]); 			
 
 			//----------------------------------------//
 
@@ -394,10 +423,9 @@ void overlay_data_mc_xsec() {
 
 		//----------------------------------------//
 
-		// Total Chi2
+		// chi2
 		calc_chi2(PlotsTrue[0][WhichPlot],PlotsFullUncReco[0][WhichPlot],Cov,Chi2[0],Ndof[0],pval[0]);
 		TString Chi2NdofNom = "(" + to_string_with_precision(Chi2[0],1) + "/" + TString(std::to_string(Ndof[0])) +")";
-		if (PlotNames[WhichPlot] == "MuonCosThetaSingleBinPlot") { Chi2NdofNom = ""; }		
 
 		TLegendEntry* lGenie_GenieOverlay = leg->AddEntry(PlotsTrue[0][WhichPlot],Labels[0]+Chi2NdofNom,"l");
 		PlotsTrue[0][WhichPlot]->SetLineWidth(3); 

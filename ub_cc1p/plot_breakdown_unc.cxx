@@ -42,48 +42,80 @@ void plot_breakdown_unc() {
 
 	std::vector<TString> knob;
 
-	// knob.push_back("b1");
-	knob.push_back("b2");
-	knob.push_back("b3");
-	knob.push_back("b4");
-	// knob.push_back("q0bin1");
-	knob.push_back("q0bin2");
-	// knob.push_back("q0bin3");
-	// ////knob.push_back("q0bin4");
-	// ////knob.push_back("q0bin5");
-	knob.push_back("QEIntf_dial_0");
-	knob.push_back("QEIntf_dial_1");
-	// knob.push_back("QEIntf_dial_2");
-	// knob.push_back("QEIntf_dial_3");
-	// knob.push_back("QEIntf_dial_4");
-	// knob.push_back("QEIntf_dial_5");
-	// knob.push_back("VecFFCCQEshape");
-	// knob.push_back("CoulombCCQE");
-	knob.push_back("NormCCMEC");
-	// knob.push_back("NormNCMEC");
-	knob.push_back("DecayAngMEC");
-	// knob.push_back("MFP_pi");
-	// knob.push_back("FrCEx_pi");
-	// knob.push_back("FrInel_pi");
-	knob.push_back("FrAbs_pi");
-	// knob.push_back("FrPiProd_pi"); 
-	// knob.push_back("FrG4_N");
-	// knob.push_back("FrINCL_N");
-	// knob.push_back("FrG4LoE_N");
-	// knob.push_back("FrINCLLoE_N");
-	// knob.push_back("FrG4M1E_N");
-	// knob.push_back("FrINCLM1E_N");
-	// knob.push_back("FrG4M2E_N");
-	knob.push_back("FrINCLM2E_N");
-	// knob.push_back("FrG4HiE_N");
-	// knob.push_back("FrINCLHiE_N");
-	// knob.push_back("MFPLoE_N");
-	// knob.push_back("MFPM1E_N");
-	// knob.push_back("MFPM2E_N");
-	// knob.push_back("MFPHiE_N");
-	// knob.push_back("FrKin_PiProFix_N");
-	// knob.push_back("FrKin_PiProBias_N");
-	knob.push_back("MECResponse");
+// ---------------- ZExp PCA ----------------
+// knob.push_back("ZExpPCAWeighter_SBNNuSyst_multisigma_MvA_ZExp_b1");
+knob.push_back("ZExpPCAWeighter_SBNNuSyst_multisigma_MvA_ZExp_b2");
+knob.push_back("ZExpPCAWeighter_SBNNuSyst_multisigma_MvA_ZExp_b3");
+knob.push_back("ZExpPCAWeighter_SBNNuSyst_multisigma_MvA_ZExp_b4");
+
+// ---------------- CCQE Template (SF) ----------------
+// knob.push_back("CCQETemplateReweight_SBNNuSyst_multisigma_SF_q0bin1");
+//knob.push_back("CCQETemplateReweight_SBNNuSyst_multisigma_SF_q0bin2");
+// knob.push_back("CCQETemplateReweight_SBNNuSyst_multisigma_SF_q0bin3");
+// knob.push_back("CCQETemplateReweight_SBNNuSyst_multisigma_SF_q0bin4");
+// knob.push_back("CCQETemplateReweight_SBNNuSyst_multisigma_SF_q0bin5");
+
+// ---------------- CCQE Template (HF) ----------------
+// knob.push_back("CCQETemplateReweight_SBNNuSyst_multisigma_HF_q0bin1");
+// knob.push_back("CCQETemplateReweight_SBNNuSyst_multisigma_HF_q0bin2");
+// knob.push_back("CCQETemplateReweight_SBNNuSyst_multisigma_HF_q0bin3");
+// knob.push_back("CCQETemplateReweight_SBNNuSyst_multisigma_HF_q0bin4");
+// knob.push_back("CCQETemplateReweight_SBNNuSyst_multisigma_HF_q0bin5");
+
+// ---------------- CCQE Template (CRPA) ----------------
+// knob.push_back("CCQETemplateReweight_SBNNuSyst_multisigma_CRPA_q0bin1");
+// knob.push_back("CCQETemplateReweight_SBNNuSyst_multisigma_CRPA_q0bin2");
+// knob.push_back("CCQETemplateReweight_SBNNuSyst_multisigma_CRPA_q0bin3");
+// knob.push_back("CCQETemplateReweight_SBNNuSyst_multisigma_CRPA_q0bin4");
+// knob.push_back("CCQETemplateReweight_SBNNuSyst_multisigma_CRPA_q0bin5");
+
+// ---------------- QE Interference ----------------
+knob.push_back("QEInterference_SBNNuSyst_multisigma_INT_QEIntf_dial_0");
+knob.push_back("QEInterference_SBNNuSyst_multisigma_INT_QEIntf_dial_1");
+// knob.push_back("QEInterference_SBNNuSyst_multisigma_INT_QEIntf_dial_2");
+// knob.push_back("QEInterference_SBNNuSyst_multisigma_INT_QEIntf_dial_3");
+// knob.push_back("QEInterference_SBNNuSyst_multisigma_INT_QEIntf_dial_4");
+// knob.push_back("QEInterference_SBNNuSyst_multisigma_INT_QEIntf_dial_5");
+
+// ---------------- GENIE EDepFSI knobs ----------------
+// knob.push_back("GENIEReWeight_SBNNuSyst_multisigma_EDepFSI_VecFFCCQEshape");
+// knob.push_back("GENIEReWeight_SBNNuSyst_multisigma_EDepFSI_CoulombCCQE");
+knob.push_back("GENIEReWeight_SBNNuSyst_multisigma_EDepFSI_NormCCMEC");
+// knob.push_back("GENIEReWeight_SBNNuSyst_multisigma_EDepFSI_NormNCMEC");
+knob.push_back("GENIEReWeight_SBNNuSyst_multisigma_EDepFSI_DecayAngMEC");
+// knob.push_back("GENIEReWeight_SBNNuSyst_multisigma_EDepFSI_MFP_pi");
+// knob.push_back("GENIEReWeight_SBNNuSyst_multisigma_EDepFSI_FrCEx_pi");
+// knob.push_back("GENIEReWeight_SBNNuSyst_multisigma_EDepFSI_FrInel_pi");
+//knob.push_back("GENIEReWeight_SBNNuSyst_multisigma_EDepFSI_FrAbs_pi");
+// knob.push_back("GENIEReWeight_SBNNuSyst_multisigma_EDepFSI_FrPiProd_pi");
+// knob.push_back("GENIEReWeight_SBNNuSyst_multisigma_EDepFSI_FrG4_N");
+// knob.push_back("GENIEReWeight_SBNNuSyst_multisigma_EDepFSI_FrINCL_N");
+// knob.push_back("GENIEReWeight_SBNNuSyst_multisigma_EDepFSI_FrG4LoE_N");
+// knob.push_back("GENIEReWeight_SBNNuSyst_multisigma_EDepFSI_FrINCLLoE_N");
+// knob.push_back("GENIEReWeight_SBNNuSyst_multisigma_EDepFSI_FrG4M1E_N");
+// knob.push_back("GENIEReWeight_SBNNuSyst_multisigma_EDepFSI_FrINCLM1E_N");
+// knob.push_back("GENIEReWeight_SBNNuSyst_multisigma_EDepFSI_FrG4M2E_N");
+//knob.push_back("GENIEReWeight_SBNNuSyst_multisigma_EDepFSI_FrINCLM2E_N");
+// knob.push_back("GENIEReWeight_SBNNuSyst_multisigma_EDepFSI_FrG4HiE_N");
+// knob.push_back("GENIEReWeight_SBNNuSyst_multisigma_EDepFSI_FrINCLHiE_N");
+// knob.push_back("GENIEReWeight_SBNNuSyst_multisigma_EDepFSI_MFPLoE_N");
+// knob.push_back("GENIEReWeight_SBNNuSyst_multisigma_EDepFSI_MFPM1E_N");
+// knob.push_back("GENIEReWeight_SBNNuSyst_multisigma_EDepFSI_MFPM2E_N");
+// knob.push_back("GENIEReWeight_SBNNuSyst_multisigma_EDepFSI_MFPHiE_N");
+// knob.push_back("GENIEReWeight_SBNNuSyst_multisigma_EDepFSI_FrKin_PiProFix_N");
+// knob.push_back("GENIEReWeight_SBNNuSyst_multisigma_EDepFSI_FrKin_PiProBias_N");
+
+// ---------------- MEC Valencia ----------------
+knob.push_back("MECq0q3InterpWeighting_SuSAv2ToValenica_q0binned_MECResponse_q0bin0");
+knob.push_back("MECq0q3InterpWeighting_SuSAv2ToValenica_q0binned_MECResponse_q0bin1");
+knob.push_back("MECq0q3InterpWeighting_SuSAv2ToValenica_q0binned_MECResponse_q0bin2");
+knob.push_back("MECq0q3InterpWeighting_SuSAv2ToValenica_q0binned_MECResponse_q0bin3");
+
+// ---------------- MEC Martini ----------------
+// knob.push_back("MECq0q3InterpWeighting_SuSAv2ToMartini_q0binned_MECResponse_q0bin0");
+// knob.push_back("MECq0q3InterpWeighting_SuSAv2ToMartini_q0binned_MECResponse_q0bin1");
+// knob.push_back("MECq0q3InterpWeighting_SuSAv2ToMartini_q0binned_MECResponse_q0bin2");
+// knob.push_back("MECq0q3InterpWeighting_SuSAv2ToMartini_q0binned_MECResponse_q0bin3");
 
 	int nknobs = knob.size();
 

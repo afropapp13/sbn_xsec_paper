@@ -89,48 +89,85 @@ void make_covariance() {
 	std::vector<int> universe;
 	std::vector<TString> knob;
 
-	knob.push_back("b1"); universe.push_back(7);
-	knob.push_back("b2"); universe.push_back(7);
-	knob.push_back("b3"); universe.push_back(7);
-	knob.push_back("b4"); universe.push_back(7);
-	knob.push_back("q0bin1"); universe.push_back(6);
-	knob.push_back("q0bin2"); universe.push_back(6);
-	knob.push_back("q0bin3"); universe.push_back(6);
-	//knob.push_back("q0bin4"); universe.push_back(6);
-	//knob.push_back("q0bin5"); universe.push_back(6);
-	knob.push_back("QEIntf_dial_0"); universe.push_back(6);
-	knob.push_back("QEIntf_dial_1"); universe.push_back(6);
-	knob.push_back("QEIntf_dial_2"); universe.push_back(6);
-	knob.push_back("QEIntf_dial_3"); universe.push_back(6);
-	knob.push_back("QEIntf_dial_4"); universe.push_back(6);
-	knob.push_back("QEIntf_dial_5"); universe.push_back(6);
-	knob.push_back("VecFFCCQEshape"); universe.push_back(6);
-	knob.push_back("CoulombCCQE"); universe.push_back(6);
-	knob.push_back("NormCCMEC"); universe.push_back(6);
-	knob.push_back("NormNCMEC"); universe.push_back(6);
-	knob.push_back("DecayAngMEC"); universe.push_back(6);
-	knob.push_back("MFP_pi"); universe.push_back(6);
-	knob.push_back("FrCEx_pi"); universe.push_back(6);
-	knob.push_back("FrInel_pi"); universe.push_back(6);
-	knob.push_back("FrAbs_pi"); universe.push_back(6);
-	knob.push_back("FrPiProd_pi"); universe.push_back(6);
-	knob.push_back("FrG4_N"); universe.push_back(6);
-	knob.push_back("FrINCL_N"); universe.push_back(6);
-	knob.push_back("FrG4LoE_N"); universe.push_back(6);
-	knob.push_back("FrINCLLoE_N"); universe.push_back(6);
-	knob.push_back("FrG4M1E_N"); universe.push_back(6);
-	knob.push_back("FrINCLM1E_N"); universe.push_back(6);
-	knob.push_back("FrG4M2E_N"); universe.push_back(6);
-	knob.push_back("FrINCLM2E_N"); universe.push_back(6);
-	knob.push_back("FrG4HiE_N"); universe.push_back(6);
-	knob.push_back("FrINCLHiE_N"); universe.push_back(6);
-	knob.push_back("MFPLoE_N"); universe.push_back(6);
-	knob.push_back("MFPM1E_N"); universe.push_back(6);
-	knob.push_back("MFPM2E_N"); universe.push_back(6);
-	knob.push_back("MFPHiE_N"); universe.push_back(6);
-	knob.push_back("FrKin_PiProFix_N"); universe.push_back(6);
-	knob.push_back("FrKin_PiProBias_N"); universe.push_back(6);
-	knob.push_back("MECResponse"); universe.push_back(6);
+	// ---------------- ZExp PCA (7 universes) ----------------
+	/*knob.push_back("ZExpPCAWeighter_SBNNuSyst_multisigma_D_ZExp_b1"); universe.push_back(7);
+	knob.push_back("ZExpPCAWeighter_SBNNuSyst_multisigma_D_ZExp_b2"); universe.push_back(7);
+	knob.push_back("ZExpPCAWeighter_SBNNuSyst_multisigma_D_ZExp_b3"); universe.push_back(7);
+	knob.push_back("ZExpPCAWeighter_SBNNuSyst_multisigma_D_ZExp_b4"); universe.push_back(7);*/
+
+	knob.push_back("ZExpPCAWeighter_SBNNuSyst_multisigma_MvA_ZExp_b1"); universe.push_back(7);
+	knob.push_back("ZExpPCAWeighter_SBNNuSyst_multisigma_MvA_ZExp_b2"); universe.push_back(7);
+	knob.push_back("ZExpPCAWeighter_SBNNuSyst_multisigma_MvA_ZExp_b3"); universe.push_back(7);
+	knob.push_back("ZExpPCAWeighter_SBNNuSyst_multisigma_MvA_ZExp_b4"); universe.push_back(7);
+
+	// ---------------- CCQE Template (SF) ----------------
+	knob.push_back("CCQETemplateReweight_SBNNuSyst_multisigma_SF_q0bin1"); universe.push_back(6);
+	knob.push_back("CCQETemplateReweight_SBNNuSyst_multisigma_SF_q0bin2"); universe.push_back(6);
+	knob.push_back("CCQETemplateReweight_SBNNuSyst_multisigma_SF_q0bin3"); universe.push_back(6);
+	knob.push_back("CCQETemplateReweight_SBNNuSyst_multisigma_SF_q0bin4"); universe.push_back(6);
+	knob.push_back("CCQETemplateReweight_SBNNuSyst_multisigma_SF_q0bin5"); universe.push_back(6);
+
+	// ---------------- CCQE Template (HF) ----------------
+	knob.push_back("CCQETemplateReweight_SBNNuSyst_multisigma_HF_q0bin1"); universe.push_back(6);
+	knob.push_back("CCQETemplateReweight_SBNNuSyst_multisigma_HF_q0bin2"); universe.push_back(6);
+	/*knob.push_back("CCQETemplateReweight_SBNNuSyst_multisigma_HF_q0bin3"); universe.push_back(6);*/
+	/*knob.push_back("CCQETemplateReweight_SBNNuSyst_multisigma_HF_q0bin4"); universe.push_back(6);*/
+	knob.push_back("CCQETemplateReweight_SBNNuSyst_multisigma_HF_q0bin5"); universe.push_back(6);
+
+	// ---------------- CCQE Template (CRPA) ----------------
+	knob.push_back("CCQETemplateReweight_SBNNuSyst_multisigma_CRPA_q0bin1"); universe.push_back(6);
+	knob.push_back("CCQETemplateReweight_SBNNuSyst_multisigma_CRPA_q0bin2"); universe.push_back(6);
+	knob.push_back("CCQETemplateReweight_SBNNuSyst_multisigma_CRPA_q0bin3"); universe.push_back(6);
+	knob.push_back("CCQETemplateReweight_SBNNuSyst_multisigma_CRPA_q0bin4"); universe.push_back(6);
+	knob.push_back("CCQETemplateReweight_SBNNuSyst_multisigma_CRPA_q0bin5"); universe.push_back(6);
+
+	// ---------------- QE Interference ----------------
+	knob.push_back("QEInterference_SBNNuSyst_multisigma_INT_QEIntf_dial_0"); universe.push_back(6);
+	knob.push_back("QEInterference_SBNNuSyst_multisigma_INT_QEIntf_dial_1"); universe.push_back(6);
+	knob.push_back("QEInterference_SBNNuSyst_multisigma_INT_QEIntf_dial_2"); universe.push_back(6);
+	knob.push_back("QEInterference_SBNNuSyst_multisigma_INT_QEIntf_dial_3"); universe.push_back(6);
+	knob.push_back("QEInterference_SBNNuSyst_multisigma_INT_QEIntf_dial_4"); universe.push_back(6);
+	knob.push_back("QEInterference_SBNNuSyst_multisigma_INT_QEIntf_dial_5"); universe.push_back(6);
+
+	// ---------------- GENIE EDepFSI knobs ----------------
+	knob.push_back("GENIEReWeight_SBNNuSyst_multisigma_EDepFSI_VecFFCCQEshape"); universe.push_back(6);
+	knob.push_back("GENIEReWeight_SBNNuSyst_multisigma_EDepFSI_CoulombCCQE"); universe.push_back(6);
+	knob.push_back("GENIEReWeight_SBNNuSyst_multisigma_EDepFSI_NormCCMEC"); universe.push_back(6);
+	knob.push_back("GENIEReWeight_SBNNuSyst_multisigma_EDepFSI_NormNCMEC"); universe.push_back(6);
+	knob.push_back("GENIEReWeight_SBNNuSyst_multisigma_EDepFSI_DecayAngMEC"); universe.push_back(6);
+	knob.push_back("GENIEReWeight_SBNNuSyst_multisigma_EDepFSI_MFP_pi"); universe.push_back(6);
+	knob.push_back("GENIEReWeight_SBNNuSyst_multisigma_EDepFSI_FrCEx_pi"); universe.push_back(6);
+	knob.push_back("GENIEReWeight_SBNNuSyst_multisigma_EDepFSI_FrInel_pi"); universe.push_back(6);
+	knob.push_back("GENIEReWeight_SBNNuSyst_multisigma_EDepFSI_FrAbs_pi"); universe.push_back(6);
+	knob.push_back("GENIEReWeight_SBNNuSyst_multisigma_EDepFSI_FrPiProd_pi"); universe.push_back(6);
+	knob.push_back("GENIEReWeight_SBNNuSyst_multisigma_EDepFSI_FrG4_N"); universe.push_back(6);
+	knob.push_back("GENIEReWeight_SBNNuSyst_multisigma_EDepFSI_FrINCL_N"); universe.push_back(6);
+	knob.push_back("GENIEReWeight_SBNNuSyst_multisigma_EDepFSI_FrG4LoE_N"); universe.push_back(6);
+	knob.push_back("GENIEReWeight_SBNNuSyst_multisigma_EDepFSI_FrINCLLoE_N"); universe.push_back(6);
+	knob.push_back("GENIEReWeight_SBNNuSyst_multisigma_EDepFSI_FrG4M1E_N"); universe.push_back(6);
+	knob.push_back("GENIEReWeight_SBNNuSyst_multisigma_EDepFSI_FrINCLM1E_N"); universe.push_back(6);
+	knob.push_back("GENIEReWeight_SBNNuSyst_multisigma_EDepFSI_FrG4M2E_N"); universe.push_back(6);
+	knob.push_back("GENIEReWeight_SBNNuSyst_multisigma_EDepFSI_FrINCLM2E_N"); universe.push_back(6);
+	knob.push_back("GENIEReWeight_SBNNuSyst_multisigma_EDepFSI_FrG4HiE_N"); universe.push_back(6);
+	knob.push_back("GENIEReWeight_SBNNuSyst_multisigma_EDepFSI_FrINCLHiE_N"); universe.push_back(6);
+	knob.push_back("GENIEReWeight_SBNNuSyst_multisigma_EDepFSI_MFPLoE_N"); universe.push_back(6);
+	knob.push_back("GENIEReWeight_SBNNuSyst_multisigma_EDepFSI_MFPM1E_N"); universe.push_back(6);
+	knob.push_back("GENIEReWeight_SBNNuSyst_multisigma_EDepFSI_MFPM2E_N"); universe.push_back(6);
+	knob.push_back("GENIEReWeight_SBNNuSyst_multisigma_EDepFSI_MFPHiE_N"); universe.push_back(6);
+	knob.push_back("GENIEReWeight_SBNNuSyst_multisigma_EDepFSI_FrKin_PiProFix_N"); universe.push_back(6);
+	knob.push_back("GENIEReWeight_SBNNuSyst_multisigma_EDepFSI_FrKin_PiProBias_N"); universe.push_back(6);
+
+	// ---------------- MEC Valencia ----------------
+	knob.push_back("MECq0q3InterpWeighting_SuSAv2ToValenica_q0binned_MECResponse_q0bin0"); universe.push_back(6);
+	knob.push_back("MECq0q3InterpWeighting_SuSAv2ToValenica_q0binned_MECResponse_q0bin1"); universe.push_back(6);
+	knob.push_back("MECq0q3InterpWeighting_SuSAv2ToValenica_q0binned_MECResponse_q0bin2"); universe.push_back(6);
+	knob.push_back("MECq0q3InterpWeighting_SuSAv2ToValenica_q0binned_MECResponse_q0bin3"); universe.push_back(6);
+
+	// ---------------- MEC Martini ----------------
+	knob.push_back("MECq0q3InterpWeighting_SuSAv2ToMartini_q0binned_MECResponse_q0bin0"); universe.push_back(6);
+	knob.push_back("MECq0q3InterpWeighting_SuSAv2ToMartini_q0binned_MECResponse_q0bin1"); universe.push_back(6);
+	knob.push_back("MECq0q3InterpWeighting_SuSAv2ToMartini_q0binned_MECResponse_q0bin2"); universe.push_back(6);
+	knob.push_back("MECq0q3InterpWeighting_SuSAv2ToMartini_q0binned_MECResponse_q0bin3"); universe.push_back(6);
 
 	//--------------------//	
 
@@ -235,6 +272,11 @@ void make_covariance() {
 
 			cv_plots[iplot]->SetLineWidth(3);			
 			cv_plots[iplot]->SetLineColor(kBlack);
+
+			double max_y = cv_plots[iplot]->GetMaximum() * 1.1;
+			cv_plots[iplot]->SetMaximum( max_y );
+			cv_plots[iplot]->SetMinimum( 0 );				
+
 			cv_plots[iplot]->Draw("hist");
 			leg.at(iplot).at(iknob)->AddEntry(cv_plots[iplot], "CV", "");		
 
@@ -279,11 +321,7 @@ void make_covariance() {
 
 				}
 
-			} // end of the loop over the sigma universes
-
-			double max_y = cv_plots[iplot]->GetMaximum() * 1.1;
-			cv_plots[iplot]->SetMaximum( max_y );
-			cv_plots[iplot]->SetMinimum( 0 );			
+			} // end of the loop over the sigma universes		
 
 			cv_plots[iplot]->Draw("hist same");			
 
@@ -291,7 +329,7 @@ void make_covariance() {
 
 			TLatex tex;
 			tex.SetTextFont(text_font);
-			tex.SetTextSize(text_size);			
+			tex.SetTextSize(text_size-0.02);			
 			tex.DrawLatexNDC(0.18, 0.83, knob[iknob]);
 
 			// add the uncertainty on the CV

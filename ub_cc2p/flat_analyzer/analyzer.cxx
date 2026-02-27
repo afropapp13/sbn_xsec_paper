@@ -136,8 +136,15 @@ void analyzer::Loop() {
 
         double syst_weight = 1.0;
         if (use_syst) syst_weight = tweak_responses[findex];
+        //divide by the MvA CV
+        if (use_syst && fweights.Contains("MvA")) { 
+            // tweak_responses[6] has the new CV
+            syst_weight = syst_weight/tweak_responses[6]; 
+        
+        }
 
-        const double weight = fScaleFactor * Units * A * Weight * syst_weight;
+        double weight = fScaleFactor * Units * A * Weight * syst_weight;
+        if (std::isnan(weight)) { continue; }
 
         // ---------------- Signal selection ----------------
 
@@ -295,7 +302,7 @@ void analyzer::Loop() {
     
     }  
 
-	std::cout << FileNameAndPath +" processed" << std::endl; 
+	std::cout << endl << FileNameAndPath +" processed" << std::endl; 
 
 	//----------------------------------------//		
 

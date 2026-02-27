@@ -136,9 +136,14 @@ void FlatTreeAnalyzer::Loop() {
         if (cc != 1) continue;
         if (nfsp < 2) continue;
 
-        const double global_weight = fScaleFactor * Units * A;
-        const double syst_weight = doSyst ? tweak_responses[findex] : 1.0;
-        const double weight = global_weight * Weight * syst_weight;
+        double global_weight = fScaleFactor * Units * A;
+        double syst_weight = doSyst ? tweak_responses[findex] : 1.0;
+        if (doSyst && fweights.Contains("MvA")) {
+            // tweak_responses[6] has the new CV
+            syst_weight = syst_weight/tweak_responses[6];
+        }
+        double weight = global_weight * Weight * syst_weight;
+        if (std::isnan(weight)) { continue; }
 
         double Pp = 0.0, CosP = -999.;
         double Pmu = 0.0;
