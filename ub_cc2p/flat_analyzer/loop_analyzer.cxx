@@ -11,7 +11,7 @@
 		{"ZExpPCAWeighter_SBNNuSyst_multisigma_D_ZExp_b3", 7},
 		{"ZExpPCAWeighter_SBNNuSyst_multisigma_D_ZExp_b4", 7},*/
 
-		{"ZExpPCAWeighter_SBNNuSyst_multisigma_MvA_ZExp_b1", 7},
+		/*{"ZExpPCAWeighter_SBNNuSyst_multisigma_MvA_ZExp_b1", 7},
 		{"ZExpPCAWeighter_SBNNuSyst_multisigma_MvA_ZExp_b2", 7},
 		{"ZExpPCAWeighter_SBNNuSyst_multisigma_MvA_ZExp_b3", 7},
 		{"ZExpPCAWeighter_SBNNuSyst_multisigma_MvA_ZExp_b4", 7},
@@ -21,7 +21,7 @@
 		{"CCQETemplateReweight_SBNNuSyst_multisigma_SF_q0bin2", 6},
 		{"CCQETemplateReweight_SBNNuSyst_multisigma_SF_q0bin3", 6},
 		{"CCQETemplateReweight_SBNNuSyst_multisigma_SF_q0bin4", 6},
-		{"CCQETemplateReweight_SBNNuSyst_multisigma_SF_q0bin5", 6},
+		{"CCQETemplateReweight_SBNNuSyst_multisigma_SF_q0bin5", 6},*/
 
 		// ---------------- CCQE Template (HF) ----------------
 		{"CCQETemplateReweight_SBNNuSyst_multisigma_HF_q0bin1", 6},
@@ -31,7 +31,7 @@
 		{"CCQETemplateReweight_SBNNuSyst_multisigma_HF_q0bin5", 6},
 
 		// ---------------- CCQE Template (CRPA) ----------------
-		{"CCQETemplateReweight_SBNNuSyst_multisigma_CRPA_q0bin1", 6},
+		/*{"CCQETemplateReweight_SBNNuSyst_multisigma_CRPA_q0bin1", 6},
 		{"CCQETemplateReweight_SBNNuSyst_multisigma_CRPA_q0bin2", 6},
 		{"CCQETemplateReweight_SBNNuSyst_multisigma_CRPA_q0bin3", 6},
 		{"CCQETemplateReweight_SBNNuSyst_multisigma_CRPA_q0bin4", 6},
@@ -83,7 +83,7 @@
 		{"MECq0q3InterpWeighting_SuSAv2ToMartini_q0binned_MECResponse_q0bin0", 6},
 		{"MECq0q3InterpWeighting_SuSAv2ToMartini_q0binned_MECResponse_q0bin1", 6},
 		{"MECq0q3InterpWeighting_SuSAv2ToMartini_q0binned_MECResponse_q0bin2", 6},
-		{"MECq0q3InterpWeighting_SuSAv2ToMartini_q0binned_MECResponse_q0bin3", 6}
+		{"MECq0q3InterpWeighting_SuSAv2ToMartini_q0binned_MECResponse_q0bin3", 6}*/
 	};
 
 	//----------------------------------------//

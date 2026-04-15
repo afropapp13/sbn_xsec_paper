@@ -111,8 +111,8 @@ void make_covariance() {
 	// ---------------- CCQE Template (HF) ----------------
 	knob.push_back("CCQETemplateReweight_SBNNuSyst_multisigma_HF_q0bin1"); universe.push_back(6);
 	knob.push_back("CCQETemplateReweight_SBNNuSyst_multisigma_HF_q0bin2"); universe.push_back(6);
-	/*knob.push_back("CCQETemplateReweight_SBNNuSyst_multisigma_HF_q0bin3"); universe.push_back(6);*/
-	/*knob.push_back("CCQETemplateReweight_SBNNuSyst_multisigma_HF_q0bin4"); universe.push_back(6);*/
+	knob.push_back("CCQETemplateReweight_SBNNuSyst_multisigma_HF_q0bin3"); universe.push_back(6);
+	knob.push_back("CCQETemplateReweight_SBNNuSyst_multisigma_HF_q0bin4"); universe.push_back(6);
 	knob.push_back("CCQETemplateReweight_SBNNuSyst_multisigma_HF_q0bin5"); universe.push_back(6);
 
 	// ---------------- CCQE Template (CRPA) ----------------
