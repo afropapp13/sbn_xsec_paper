@@ -61,8 +61,9 @@ void analyzer::Loop()
     double tweak_responses[7] = {1,1,1,1,1,1,1};
     int ntweaks = 0;
     double paramCVWeight;
+    double tweak_responses_minerva[7] = {1,1,1,1,1,1,1}; 
 
-    if (fOutputFile == "AR23" && fweights != "" && findex != -1) {
+    if (fOutputFile == "AR23") {
 
         syst_file = TFile::Open(
             "/pnfs/sbnd/persistent/users/apapadop/GENIETweakedSamples/v3_6_2_AR23_20i_00_000/syst_14_1000180400_CC_v3_6_2_AR23_20i_00_000.root",
@@ -71,13 +72,22 @@ void analyzer::Loop()
         syst_tree = (TTree*)syst_file->Get("events");
 
         syst_tree->SetBranchStatus("*", 0);
-        syst_tree->SetBranchStatus(("tweak_responses_" + fweights).Data(), 1);
-        syst_tree->SetBranchStatus(("ntweaks_" + fweights).Data(), 1);
-        syst_tree->SetBranchStatus(("paramCVWeight_" + fweights).Data(), 1);        
 
-        syst_tree->SetBranchAddress(("ntweaks_" + fweights).Data(), &ntweaks);
-        syst_tree->SetBranchAddress(("tweak_responses_" + fweights).Data(), &tweak_responses);
-        syst_tree->SetBranchAddress(("paramCVWeight_" + fweights).Data(), &paramCVWeight);        
+        // to grab the weight for the AR23 minerva prediction
+        syst_tree->SetBranchStatus("tweak_responses_ZExpPCAWeighter_SBNNuSyst_multisigma_MvA_ZExp_b1", 1);
+        syst_tree->SetBranchAddress("tweak_responses_ZExpPCAWeighter_SBNNuSyst_multisigma_MvA_ZExp_b1", &tweak_responses_minerva);                 
+
+        if (fweights != "") {
+
+            syst_tree->SetBranchStatus(("tweak_responses_" + fweights).Data(), 1);
+            syst_tree->SetBranchStatus(("ntweaks_" + fweights).Data(), 1);
+            syst_tree->SetBranchStatus(("paramCVWeight_" + fweights).Data(), 1);        
+
+            syst_tree->SetBranchAddress(("ntweaks_" + fweights).Data(), &ntweaks);
+            syst_tree->SetBranchAddress(("tweak_responses_" + fweights).Data(), &tweak_responses);
+            syst_tree->SetBranchAddress(("paramCVWeight_" + fweights).Data(), &paramCVWeight);    
+            
+        } 
 
     }
 
@@ -155,17 +165,19 @@ void analyzer::Loop()
         //----------------------------------        
 
         double syst_weight = 1.0;
+        double cv_weight = 1.;
 
-        if (findex >= 0) {
+        // for AR23, we need to reweight to the minerva FF
+        if (fOutputFile == "AR23") {
             
             syst_tree->GetEntry(i);    
-            syst_weight = tweak_responses[findex];
-            // tweak_responses[6] has the new CV
-            if (fweights.Contains("MvA")) { syst_weight = syst_weight/tweak_responses[6]; }
+            if (fweights != "") { syst_weight = tweak_responses[findex]; }
+            // tweak_responses[6] has the new CV for the minerva FF
+            if ( !(fweights.Contains("MvA") ) ) { cv_weight = tweak_responses_minerva[6]; } 
 
         }
 
-        double weight = fScaleFactor * Units * A * Weight * syst_weight;
+        double weight = fScaleFactor * Units * A * Weight * syst_weight * cv_weight;
         if (std::isnan(weight)) { continue; }
 
         TLorentzVector mu4(px[mu], py[mu], pz[mu], E[mu]);

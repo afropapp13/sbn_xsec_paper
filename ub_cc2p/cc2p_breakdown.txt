@@ -1,0 +1,190 @@
+   ------------------------------------------------------------------
+  | Welcome to ROOT 6.28/12                        https://root.cern |
+  | (c) 1995-2024, The ROOT Team; conception: R. Brun, F. Rademakers |
+  | Built for linuxx8664gcc on Jan 30 2024, 08:17:35                 |
+  | From tags/v6-28-12@v6-28-12                                      |
+  | With g++ (GCC) 12.1.0                                            |
+  | Try '.help'/'.?', '.demo', '.license', '.credits', '.quit'/'.q'  |
+   ------------------------------------------------------------------
+
+
+Processing plot_breakdown_unc.cxx...
+Bin 1: value = 2.43893, error = 0.811507, fractional uncertainty (%) = 33.273
+
+knob: ZExpPCAWeighter_SBNNuSyst_multisigma_MvA_ZExp_b1
+Bin 1: value = 2.43893, error = 0.0195894, fractional uncertainty (%) = 0.803196
+
+knob: ZExpPCAWeighter_SBNNuSyst_multisigma_MvA_ZExp_b2
+Bin 1: value = 2.43893, error = 0.0597051, fractional uncertainty (%) = 2.448
+
+knob: ZExpPCAWeighter_SBNNuSyst_multisigma_MvA_ZExp_b3
+Bin 1: value = 2.43893, error = 0.053141, fractional uncertainty (%) = 2.17886
+
+knob: ZExpPCAWeighter_SBNNuSyst_multisigma_MvA_ZExp_b4
+Bin 1: value = 2.43893, error = 0.0378748, fractional uncertainty (%) = 1.55292
+
+knob: CCQETemplateReweight_SBNNuSyst_multisigma_SF_q0bin1
+Bin 1: value = 2.43893, error = 0, fractional uncertainty (%) = 0
+
+knob: CCQETemplateReweight_SBNNuSyst_multisigma_SF_q0bin2
+Bin 1: value = 2.43893, error = 0.000332883, fractional uncertainty (%) = 0.0136487
+
+knob: CCQETemplateReweight_SBNNuSyst_multisigma_SF_q0bin3
+Bin 1: value = 2.43893, error = 0.00243902, fractional uncertainty (%) = 0.100004
+
+knob: CCQETemplateReweight_SBNNuSyst_multisigma_SF_q0bin4
+Bin 1: value = 2.43893, error = 0.160424, fractional uncertainty (%) = 6.57765
+
+knob: CCQETemplateReweight_SBNNuSyst_multisigma_SF_q0bin5
+Bin 1: value = 2.43893, error = 0.0100269, fractional uncertainty (%) = 0.411119
+
+knob: CCQETemplateReweight_SBNNuSyst_multisigma_HF_q0bin1
+Bin 1: value = 2.43893, error = 0, fractional uncertainty (%) = 0
+
+knob: CCQETemplateReweight_SBNNuSyst_multisigma_HF_q0bin2
+Bin 1: value = 2.43893, error = 0.000645987, fractional uncertainty (%) = 0.0264865
+
+knob: CCQETemplateReweight_SBNNuSyst_multisigma_HF_q0bin3
+Bin 1: value = 2.43893, error = 0.00349709, fractional uncertainty (%) = 0.143386
+
+knob: CCQETemplateReweight_SBNNuSyst_multisigma_HF_q0bin4
+Bin 1: value = 2.43893, error = 0.05301, fractional uncertainty (%) = 2.17349
+
+knob: CCQETemplateReweight_SBNNuSyst_multisigma_HF_q0bin5
+Bin 1: value = 2.43893, error = 0.000200949, fractional uncertainty (%) = 0.00823922
+
+knob: CCQETemplateReweight_SBNNuSyst_multisigma_CRPA_q0bin1
+Bin 1: value = 2.43893, error = 0, fractional uncertainty (%) = 0
+
+knob: CCQETemplateReweight_SBNNuSyst_multisigma_CRPA_q0bin2
+Bin 1: value = 2.43893, error = 0.000286512, fractional uncertainty (%) = 0.0117474
+
+knob: CCQETemplateReweight_SBNNuSyst_multisigma_CRPA_q0bin3
+Bin 1: value = 2.43893, error = 0.00566128, fractional uncertainty (%) = 0.232121
+
+knob: CCQETemplateReweight_SBNNuSyst_multisigma_CRPA_q0bin4
+Bin 1: value = 2.43893, error = 0.0236189, fractional uncertainty (%) = 0.96841
+
+knob: CCQETemplateReweight_SBNNuSyst_multisigma_CRPA_q0bin5
+Bin 1: value = 2.43893, error = 1.08918e-05, fractional uncertainty (%) = 0.000446579
+
+knob: QEInterference_SBNNuSyst_multisigma_INT_QEIntf_dial_0
+Bin 1: value = 2.43893, error = 0.0277032, fractional uncertainty (%) = 1.13587
+
+knob: QEInterference_SBNNuSyst_multisigma_INT_QEIntf_dial_1
+Bin 1: value = 2.43893, error = 0.0589042, fractional uncertainty (%) = 2.41516
+
+knob: QEInterference_SBNNuSyst_multisigma_INT_QEIntf_dial_2
+Bin 1: value = 2.43893, error = 0.0177325, fractional uncertainty (%) = 0.72706
+
+knob: QEInterference_SBNNuSyst_multisigma_INT_QEIntf_dial_3
+Bin 1: value = 2.43893, error = 0.00210602, fractional uncertainty (%) = 0.0863499
+
+knob: QEInterference_SBNNuSyst_multisigma_INT_QEIntf_dial_4
+Bin 1: value = 2.43893, error = 0.000273376, fractional uncertainty (%) = 0.0112088
+
+knob: QEInterference_SBNNuSyst_multisigma_INT_QEIntf_dial_5
+Bin 1: value = 2.43893, error = 0, fractional uncertainty (%) = 0
+
+knob: GENIEReWeight_SBNNuSyst_multisigma_EDepFSI_VecFFCCQEshape
+Bin 1: value = 2.43893, error = 0.0148566, fractional uncertainty (%) = 0.609143
+
+knob: GENIEReWeight_SBNNuSyst_multisigma_EDepFSI_CoulombCCQE
+Bin 1: value = 2.43893, error = 0.00450147, fractional uncertainty (%) = 0.184567
+
+knob: GENIEReWeight_SBNNuSyst_multisigma_EDepFSI_NormCCMEC
+Bin 1: value = 2.43893, error = 0.555336, fractional uncertainty (%) = 22.7696
+
+knob: GENIEReWeight_SBNNuSyst_multisigma_EDepFSI_NormNCMEC
+Bin 1: value = 2.43893, error = 0, fractional uncertainty (%) = 0
+
+knob: GENIEReWeight_SBNNuSyst_multisigma_EDepFSI_DecayAngMEC
+Bin 1: value = 2.43893, error = 0.215704, fractional uncertainty (%) = 8.84418
+
+knob: GENIEReWeight_SBNNuSyst_multisigma_EDepFSI_MFP_pi
+Bin 1: value = 2.43893, error = 0.0329936, fractional uncertainty (%) = 1.35279
+
+knob: GENIEReWeight_SBNNuSyst_multisigma_EDepFSI_FrCEx_pi
+Bin 1: value = 2.43893, error = 0.0888283, fractional uncertainty (%) = 3.64209
+
+knob: GENIEReWeight_SBNNuSyst_multisigma_EDepFSI_FrInel_pi
+Bin 1: value = 2.43893, error = 0.079501, fractional uncertainty (%) = 3.25966
+
+knob: GENIEReWeight_SBNNuSyst_multisigma_EDepFSI_FrAbs_pi
+Bin 1: value = 2.43893, error = 0.175745, fractional uncertainty (%) = 7.20583
+
+knob: GENIEReWeight_SBNNuSyst_multisigma_EDepFSI_FrPiProd_pi
+Bin 1: value = 2.43893, error = 0.00402347, fractional uncertainty (%) = 0.164968
+
+knob: GENIEReWeight_SBNNuSyst_multisigma_EDepFSI_FrG4_N
+Bin 1: value = 2.43893, error = 0.2958, fractional uncertainty (%) = 12.1283
+
+knob: GENIEReWeight_SBNNuSyst_multisigma_EDepFSI_FrINCL_N
+Bin 1: value = 2.43893, error = 0.158218, fractional uncertainty (%) = 6.48719
+
+knob: GENIEReWeight_SBNNuSyst_multisigma_EDepFSI_FrG4LoE_N
+Bin 1: value = 2.43893, error = 0.0191903, fractional uncertainty (%) = 0.78683
+
+knob: GENIEReWeight_SBNNuSyst_multisigma_EDepFSI_FrINCLLoE_N
+Bin 1: value = 2.43893, error = 0.00679128, fractional uncertainty (%) = 0.278453
+
+knob: GENIEReWeight_SBNNuSyst_multisigma_EDepFSI_FrG4M1E_N
+Bin 1: value = 2.43893, error = 0.140967, fractional uncertainty (%) = 5.77986
+
+knob: GENIEReWeight_SBNNuSyst_multisigma_EDepFSI_FrINCLM1E_N
+Bin 1: value = 2.43893, error = 0.0673716, fractional uncertainty (%) = 2.76234
+
+knob: GENIEReWeight_SBNNuSyst_multisigma_EDepFSI_FrG4M2E_N
+Bin 1: value = 2.43893, error = 0.127371, fractional uncertainty (%) = 5.22241
+
+knob: GENIEReWeight_SBNNuSyst_multisigma_EDepFSI_FrINCLM2E_N
+Bin 1: value = 2.43893, error = 0.0776436, fractional uncertainty (%) = 3.18351
+
+knob: GENIEReWeight_SBNNuSyst_multisigma_EDepFSI_FrG4HiE_N
+Bin 1: value = 2.43893, error = 0.00591704, fractional uncertainty (%) = 0.242608
+
+knob: GENIEReWeight_SBNNuSyst_multisigma_EDepFSI_FrINCLHiE_N
+Bin 1: value = 2.43893, error = 0.00545096, fractional uncertainty (%) = 0.223498
+
+knob: GENIEReWeight_SBNNuSyst_multisigma_EDepFSI_MFPLoE_N
+Bin 1: value = 2.43893, error = 0.0219276, fractional uncertainty (%) = 0.899066
+
+knob: GENIEReWeight_SBNNuSyst_multisigma_EDepFSI_MFPM1E_N
+Bin 1: value = 2.43893, error = 0.0105832, fractional uncertainty (%) = 0.433927
+
+knob: GENIEReWeight_SBNNuSyst_multisigma_EDepFSI_MFPM2E_N
+Bin 1: value = 2.43893, error = 0.032762, fractional uncertainty (%) = 1.34329
+
+knob: GENIEReWeight_SBNNuSyst_multisigma_EDepFSI_MFPHiE_N
+Bin 1: value = 2.43893, error = 0.00426957, fractional uncertainty (%) = 0.175059
+
+knob: GENIEReWeight_SBNNuSyst_multisigma_EDepFSI_FrKin_PiProFix_N
+Bin 1: value = 2.43893, error = 1.67684e-05, fractional uncertainty (%) = 0.000687531
+
+knob: GENIEReWeight_SBNNuSyst_multisigma_EDepFSI_FrKin_PiProBias_N
+Bin 1: value = 2.43893, error = 0.000282411, fractional uncertainty (%) = 0.0115793
+
+knob: MECq0q3InterpWeighting_SuSAv2ToValenica_q0binned_MECResponse_q0bin0
+Bin 1: value = 2.43893, error = 0.0180987, fractional uncertainty (%) = 0.742072
+
+knob: MECq0q3InterpWeighting_SuSAv2ToValenica_q0binned_MECResponse_q0bin1
+Bin 1: value = 2.43893, error = 0.184283, fractional uncertainty (%) = 7.55589
+
+knob: MECq0q3InterpWeighting_SuSAv2ToValenica_q0binned_MECResponse_q0bin2
+Bin 1: value = 2.43893, error = 0.0597497, fractional uncertainty (%) = 2.44983
+
+knob: MECq0q3InterpWeighting_SuSAv2ToValenica_q0binned_MECResponse_q0bin3
+Bin 1: value = 2.43893, error = 0.0248534, fractional uncertainty (%) = 1.01903
+
+knob: MECq0q3InterpWeighting_SuSAv2ToMartini_q0binned_MECResponse_q0bin0
+Bin 1: value = 2.43893, error = 0.0272842, fractional uncertainty (%) = 1.11869
+
+knob: MECq0q3InterpWeighting_SuSAv2ToMartini_q0binned_MECResponse_q0bin1
+Bin 1: value = 2.43893, error = 0.08378, fractional uncertainty (%) = 3.43511
+
+knob: MECq0q3InterpWeighting_SuSAv2ToMartini_q0binned_MECResponse_q0bin2
+Bin 1: value = 2.43893, error = 0.0869497, fractional uncertainty (%) = 3.56507
+
+knob: MECq0q3InterpWeighting_SuSAv2ToMartini_q0binned_MECResponse_q0bin3
+Bin 1: value = 2.43893, error = 0.000215869, fractional uncertainty (%) = 0.00885097
+

@@ -28,13 +28,11 @@ void plot_breakdown_unc() {
 
 	//--------------------//
 
-	vector<TString> plot_names;
-	plot_names.push_back("TrueSingleBinPlot");	
+	vector<TString> plot_names;	
 	plot_names.push_back("TrueMuonCosThetaPlot");	
 	plot_names.push_back("TrueDeltaPTPlot"); 
-	plot_names.push_back("TrueDeltaAlphaTPlot"); 
-	//plot_names.push_back("SerialTrueDeltaPT_DeltaAlphaTPlot");
-	//plot_names.push_back("SerialTrueDeltaAlphaT_DeltaPTPlot");
+	plot_names.push_back("TrueDeltaAlphaTPlot");
+	plot_names.push_back("TrueSingleBinPlot");
 
 	const int nplots = plot_names.size();
 
@@ -42,80 +40,85 @@ void plot_breakdown_unc() {
 
 	std::vector<TString> knob;
 
-// ---------------- ZExp PCA ----------------
-// knob.push_back("ZExpPCAWeighter_SBNNuSyst_multisigma_MvA_ZExp_b1");
-knob.push_back("ZExpPCAWeighter_SBNNuSyst_multisigma_MvA_ZExp_b2");
-knob.push_back("ZExpPCAWeighter_SBNNuSyst_multisigma_MvA_ZExp_b3");
-knob.push_back("ZExpPCAWeighter_SBNNuSyst_multisigma_MvA_ZExp_b4");
+	// ---------------- ZExp PCA (7 universes) ----------------
+	/*knob.push_back("ZExpPCAWeighter_SBNNuSyst_multisigma_D_ZExp_b1");
+	knob.push_back("ZExpPCAWeighter_SBNNuSyst_multisigma_D_ZExp_b2");
+	knob.push_back("ZExpPCAWeighter_SBNNuSyst_multisigma_D_ZExp_b3");
+	knob.push_back("ZExpPCAWeighter_SBNNuSyst_multisigma_D_ZExp_b4");*/
 
-// ---------------- CCQE Template (SF) ----------------
-// knob.push_back("CCQETemplateReweight_SBNNuSyst_multisigma_SF_q0bin1");
-//knob.push_back("CCQETemplateReweight_SBNNuSyst_multisigma_SF_q0bin2");
-// knob.push_back("CCQETemplateReweight_SBNNuSyst_multisigma_SF_q0bin3");
-// knob.push_back("CCQETemplateReweight_SBNNuSyst_multisigma_SF_q0bin4");
-// knob.push_back("CCQETemplateReweight_SBNNuSyst_multisigma_SF_q0bin5");
+	knob.push_back("ZExpPCAWeighter_SBNNuSyst_multisigma_MvA_ZExp_b1");
+	knob.push_back("ZExpPCAWeighter_SBNNuSyst_multisigma_MvA_ZExp_b2");
+	knob.push_back("ZExpPCAWeighter_SBNNuSyst_multisigma_MvA_ZExp_b3");
+	knob.push_back("ZExpPCAWeighter_SBNNuSyst_multisigma_MvA_ZExp_b4");
 
-// ---------------- CCQE Template (HF) ----------------
-// knob.push_back("CCQETemplateReweight_SBNNuSyst_multisigma_HF_q0bin1");
-// knob.push_back("CCQETemplateReweight_SBNNuSyst_multisigma_HF_q0bin2");
-// knob.push_back("CCQETemplateReweight_SBNNuSyst_multisigma_HF_q0bin3");
-// knob.push_back("CCQETemplateReweight_SBNNuSyst_multisigma_HF_q0bin4");
-// knob.push_back("CCQETemplateReweight_SBNNuSyst_multisigma_HF_q0bin5");
+	// ---------------- CCQE Template (SF) ----------------
+	knob.push_back("CCQETemplateReweight_SBNNuSyst_multisigma_SF_q0bin1"); 
+	knob.push_back("CCQETemplateReweight_SBNNuSyst_multisigma_SF_q0bin2"); 
+	knob.push_back("CCQETemplateReweight_SBNNuSyst_multisigma_SF_q0bin3"); 
+	knob.push_back("CCQETemplateReweight_SBNNuSyst_multisigma_SF_q0bin4"); 
+	knob.push_back("CCQETemplateReweight_SBNNuSyst_multisigma_SF_q0bin5"); 
 
-// ---------------- CCQE Template (CRPA) ----------------
-// knob.push_back("CCQETemplateReweight_SBNNuSyst_multisigma_CRPA_q0bin1");
-// knob.push_back("CCQETemplateReweight_SBNNuSyst_multisigma_CRPA_q0bin2");
-// knob.push_back("CCQETemplateReweight_SBNNuSyst_multisigma_CRPA_q0bin3");
-// knob.push_back("CCQETemplateReweight_SBNNuSyst_multisigma_CRPA_q0bin4");
-// knob.push_back("CCQETemplateReweight_SBNNuSyst_multisigma_CRPA_q0bin5");
+	// ---------------- CCQE Template (HF) ----------------
+	knob.push_back("CCQETemplateReweight_SBNNuSyst_multisigma_HF_q0bin1"); 
+	knob.push_back("CCQETemplateReweight_SBNNuSyst_multisigma_HF_q0bin2"); 
+	knob.push_back("CCQETemplateReweight_SBNNuSyst_multisigma_HF_q0bin3"); 
+	knob.push_back("CCQETemplateReweight_SBNNuSyst_multisigma_HF_q0bin4"); 
+	knob.push_back("CCQETemplateReweight_SBNNuSyst_multisigma_HF_q0bin5"); 
 
-// ---------------- QE Interference ----------------
-knob.push_back("QEInterference_SBNNuSyst_multisigma_INT_QEIntf_dial_0");
-knob.push_back("QEInterference_SBNNuSyst_multisigma_INT_QEIntf_dial_1");
-// knob.push_back("QEInterference_SBNNuSyst_multisigma_INT_QEIntf_dial_2");
-// knob.push_back("QEInterference_SBNNuSyst_multisigma_INT_QEIntf_dial_3");
-// knob.push_back("QEInterference_SBNNuSyst_multisigma_INT_QEIntf_dial_4");
-// knob.push_back("QEInterference_SBNNuSyst_multisigma_INT_QEIntf_dial_5");
+	// ---------------- CCQE Template (CRPA) ----------------
+	knob.push_back("CCQETemplateReweight_SBNNuSyst_multisigma_CRPA_q0bin1"); 
+	knob.push_back("CCQETemplateReweight_SBNNuSyst_multisigma_CRPA_q0bin2"); 
+	knob.push_back("CCQETemplateReweight_SBNNuSyst_multisigma_CRPA_q0bin3"); 
+	knob.push_back("CCQETemplateReweight_SBNNuSyst_multisigma_CRPA_q0bin4"); 
+	knob.push_back("CCQETemplateReweight_SBNNuSyst_multisigma_CRPA_q0bin5"); 
 
-// ---------------- GENIE EDepFSI knobs ----------------
-// knob.push_back("GENIEReWeight_SBNNuSyst_multisigma_EDepFSI_VecFFCCQEshape");
-// knob.push_back("GENIEReWeight_SBNNuSyst_multisigma_EDepFSI_CoulombCCQE");
-knob.push_back("GENIEReWeight_SBNNuSyst_multisigma_EDepFSI_NormCCMEC");
-// knob.push_back("GENIEReWeight_SBNNuSyst_multisigma_EDepFSI_NormNCMEC");
-knob.push_back("GENIEReWeight_SBNNuSyst_multisigma_EDepFSI_DecayAngMEC");
-// knob.push_back("GENIEReWeight_SBNNuSyst_multisigma_EDepFSI_MFP_pi");
-// knob.push_back("GENIEReWeight_SBNNuSyst_multisigma_EDepFSI_FrCEx_pi");
-// knob.push_back("GENIEReWeight_SBNNuSyst_multisigma_EDepFSI_FrInel_pi");
-//knob.push_back("GENIEReWeight_SBNNuSyst_multisigma_EDepFSI_FrAbs_pi");
-// knob.push_back("GENIEReWeight_SBNNuSyst_multisigma_EDepFSI_FrPiProd_pi");
-// knob.push_back("GENIEReWeight_SBNNuSyst_multisigma_EDepFSI_FrG4_N");
-// knob.push_back("GENIEReWeight_SBNNuSyst_multisigma_EDepFSI_FrINCL_N");
-// knob.push_back("GENIEReWeight_SBNNuSyst_multisigma_EDepFSI_FrG4LoE_N");
-// knob.push_back("GENIEReWeight_SBNNuSyst_multisigma_EDepFSI_FrINCLLoE_N");
-// knob.push_back("GENIEReWeight_SBNNuSyst_multisigma_EDepFSI_FrG4M1E_N");
-// knob.push_back("GENIEReWeight_SBNNuSyst_multisigma_EDepFSI_FrINCLM1E_N");
-// knob.push_back("GENIEReWeight_SBNNuSyst_multisigma_EDepFSI_FrG4M2E_N");
-//knob.push_back("GENIEReWeight_SBNNuSyst_multisigma_EDepFSI_FrINCLM2E_N");
-// knob.push_back("GENIEReWeight_SBNNuSyst_multisigma_EDepFSI_FrG4HiE_N");
-// knob.push_back("GENIEReWeight_SBNNuSyst_multisigma_EDepFSI_FrINCLHiE_N");
-// knob.push_back("GENIEReWeight_SBNNuSyst_multisigma_EDepFSI_MFPLoE_N");
-// knob.push_back("GENIEReWeight_SBNNuSyst_multisigma_EDepFSI_MFPM1E_N");
-// knob.push_back("GENIEReWeight_SBNNuSyst_multisigma_EDepFSI_MFPM2E_N");
-// knob.push_back("GENIEReWeight_SBNNuSyst_multisigma_EDepFSI_MFPHiE_N");
-// knob.push_back("GENIEReWeight_SBNNuSyst_multisigma_EDepFSI_FrKin_PiProFix_N");
-// knob.push_back("GENIEReWeight_SBNNuSyst_multisigma_EDepFSI_FrKin_PiProBias_N");
+	// ---------------- QE Interference ----------------
+	knob.push_back("QEInterference_SBNNuSyst_multisigma_INT_QEIntf_dial_0"); 
+	knob.push_back("QEInterference_SBNNuSyst_multisigma_INT_QEIntf_dial_1"); 
+	knob.push_back("QEInterference_SBNNuSyst_multisigma_INT_QEIntf_dial_2"); 
+	knob.push_back("QEInterference_SBNNuSyst_multisigma_INT_QEIntf_dial_3"); 
+	knob.push_back("QEInterference_SBNNuSyst_multisigma_INT_QEIntf_dial_4"); 
+	knob.push_back("QEInterference_SBNNuSyst_multisigma_INT_QEIntf_dial_5"); 
 
-// ---------------- MEC Valencia ----------------
-knob.push_back("MECq0q3InterpWeighting_SuSAv2ToValenica_q0binned_MECResponse_q0bin0");
-knob.push_back("MECq0q3InterpWeighting_SuSAv2ToValenica_q0binned_MECResponse_q0bin1");
-knob.push_back("MECq0q3InterpWeighting_SuSAv2ToValenica_q0binned_MECResponse_q0bin2");
-knob.push_back("MECq0q3InterpWeighting_SuSAv2ToValenica_q0binned_MECResponse_q0bin3");
+	// ---------------- GENIE EDepFSI knobs ----------------
+	knob.push_back("GENIEReWeight_SBNNuSyst_multisigma_EDepFSI_VecFFCCQEshape"); 
+	knob.push_back("GENIEReWeight_SBNNuSyst_multisigma_EDepFSI_CoulombCCQE"); 
+	knob.push_back("GENIEReWeight_SBNNuSyst_multisigma_EDepFSI_NormCCMEC"); 
+	knob.push_back("GENIEReWeight_SBNNuSyst_multisigma_EDepFSI_NormNCMEC"); 
+	knob.push_back("GENIEReWeight_SBNNuSyst_multisigma_EDepFSI_DecayAngMEC"); 
+	knob.push_back("GENIEReWeight_SBNNuSyst_multisigma_EDepFSI_MFP_pi"); 
+	knob.push_back("GENIEReWeight_SBNNuSyst_multisigma_EDepFSI_FrCEx_pi"); 
+	knob.push_back("GENIEReWeight_SBNNuSyst_multisigma_EDepFSI_FrInel_pi");
+	knob.push_back("GENIEReWeight_SBNNuSyst_multisigma_EDepFSI_FrAbs_pi"); 
+	knob.push_back("GENIEReWeight_SBNNuSyst_multisigma_EDepFSI_FrPiProd_pi"); 
+	knob.push_back("GENIEReWeight_SBNNuSyst_multisigma_EDepFSI_FrG4_N"); 
+	knob.push_back("GENIEReWeight_SBNNuSyst_multisigma_EDepFSI_FrINCL_N"); 
+	knob.push_back("GENIEReWeight_SBNNuSyst_multisigma_EDepFSI_FrG4LoE_N"); 
+	knob.push_back("GENIEReWeight_SBNNuSyst_multisigma_EDepFSI_FrINCLLoE_N"); 
+	knob.push_back("GENIEReWeight_SBNNuSyst_multisigma_EDepFSI_FrG4M1E_N"); 
+	knob.push_back("GENIEReWeight_SBNNuSyst_multisigma_EDepFSI_FrINCLM1E_N"); 
+	knob.push_back("GENIEReWeight_SBNNuSyst_multisigma_EDepFSI_FrG4M2E_N"); 
+	knob.push_back("GENIEReWeight_SBNNuSyst_multisigma_EDepFSI_FrINCLM2E_N"); 
+	knob.push_back("GENIEReWeight_SBNNuSyst_multisigma_EDepFSI_FrG4HiE_N"); 
+	knob.push_back("GENIEReWeight_SBNNuSyst_multisigma_EDepFSI_FrINCLHiE_N"); 
+	knob.push_back("GENIEReWeight_SBNNuSyst_multisigma_EDepFSI_MFPLoE_N"); 
+	knob.push_back("GENIEReWeight_SBNNuSyst_multisigma_EDepFSI_MFPM1E_N"); 
+	knob.push_back("GENIEReWeight_SBNNuSyst_multisigma_EDepFSI_MFPM2E_N"); 
+	knob.push_back("GENIEReWeight_SBNNuSyst_multisigma_EDepFSI_MFPHiE_N"); 
+	knob.push_back("GENIEReWeight_SBNNuSyst_multisigma_EDepFSI_FrKin_PiProFix_N"); 
+	knob.push_back("GENIEReWeight_SBNNuSyst_multisigma_EDepFSI_FrKin_PiProBias_N"); 
 
-// ---------------- MEC Martini ----------------
-// knob.push_back("MECq0q3InterpWeighting_SuSAv2ToMartini_q0binned_MECResponse_q0bin0");
-// knob.push_back("MECq0q3InterpWeighting_SuSAv2ToMartini_q0binned_MECResponse_q0bin1");
-// knob.push_back("MECq0q3InterpWeighting_SuSAv2ToMartini_q0binned_MECResponse_q0bin2");
-// knob.push_back("MECq0q3InterpWeighting_SuSAv2ToMartini_q0binned_MECResponse_q0bin3");
+	// ---------------- MEC Valencia ----------------
+	knob.push_back("MECq0q3InterpWeighting_SuSAv2ToValenica_q0binned_MECResponse_q0bin0"); 
+	knob.push_back("MECq0q3InterpWeighting_SuSAv2ToValenica_q0binned_MECResponse_q0bin1"); 
+	knob.push_back("MECq0q3InterpWeighting_SuSAv2ToValenica_q0binned_MECResponse_q0bin2"); 
+	knob.push_back("MECq0q3InterpWeighting_SuSAv2ToValenica_q0binned_MECResponse_q0bin3"); 
+
+	// ---------------- MEC Martini ----------------
+	knob.push_back("MECq0q3InterpWeighting_SuSAv2ToMartini_q0binned_MECResponse_q0bin0"); 
+	knob.push_back("MECq0q3InterpWeighting_SuSAv2ToMartini_q0binned_MECResponse_q0bin1"); 
+	knob.push_back("MECq0q3InterpWeighting_SuSAv2ToMartini_q0binned_MECResponse_q0bin2"); 
+	knob.push_back("MECq0q3InterpWeighting_SuSAv2ToMartini_q0binned_MECResponse_q0bin3");
 
 	int nknobs = knob.size();
 
@@ -233,6 +236,10 @@ knob.push_back("MECq0q3InterpWeighting_SuSAv2ToValenica_q0binned_MECResponse_q0b
 
 		for (int iknob = 0; iknob < nknobs; iknob++) {
 
+			cout << "knob: " << knob[iknob] << endl;
+			TString cov_name = "covariance_"+knob[iknob]+"_"+plot_names[iplot];
+			//cout << "Looking for covariance matrix: " << cov_name << endl;
+
 			knob_cov.at(iplot).at(iknob) = (TH2D*)(cov_file->Get("covariance_"+knob[iknob]+"_"+plot_names[iplot]));	
 			knob_unc_plot.at(iplot).at(iknob) = get_frac_unc_from_cov(knob_cov.at(iplot).at(iknob),cv_plot.at(iplot));	
 			
@@ -242,12 +249,12 @@ knob.push_back("MECq0q3InterpWeighting_SuSAv2ToValenica_q0binned_MECResponse_q0b
 			// 	cout << knob[iknob] << " " << unc_str << "%" << endl;
 			// }	
 
-			knob_unc_plot.at(iplot).at(iknob)->SetLineColor(colors.at(iknob)); // add me
+			//knob_unc_plot.at(iplot).at(iknob)->SetLineColor(colors.at(iknob)); // add me
 			knob_unc_plot.at(iplot).at(iknob)->Draw("same");
 			//leg.at(iplot)->AddEntry(knob_unc_plot.at(iplot).at(iknob), knob[iknob], "l");
 			
 			TLegendEntry* lGenie = leg.at(iplot)->AddEntry(knob_unc_plot.at(iplot).at(iknob), knob[iknob],"");
-			lGenie->SetTextColor(colors.at(iknob)); // add me		
+			//lGenie->SetTextColor(colors.at(iknob)); // add me		
 			TString unc_str = knob[iknob] + " (" + to_string_with_precision(get_one_bin_unc(knob_unc_plot.at(iplot).at(iknob)), 1) + "%)";		
 			//cout << unc_str << endl;			
 

@@ -84,13 +84,14 @@
 		{"MECq0q3InterpWeighting_SuSAv2ToMartini_q0binned_MECResponse_q0bin1", 6},
 		{"MECq0q3InterpWeighting_SuSAv2ToMartini_q0binned_MECResponse_q0bin2", 6},
 		{"MECq0q3InterpWeighting_SuSAv2ToMartini_q0binned_MECResponse_q0bin3", 6}
+
 	};
 
 	//----------------------------------------//
 
 	//pnfsToXRootD
 
-	//WhichSample.push_back("/pnfs/sbnd/persistent/users/apapadop/GENIETweakedSamples/v3_6_2_AR25_20i_00_000_sbn1/14_1000180400_CC_v3_6_2_AR25_20i_00_000.flat.root"); WhichName.push_back("AR25");
+	WhichSample.push_back("/pnfs/sbnd/persistent/users/apapadop/GENIETweakedSamples/v3_6_2_AR25_20i_00_000_sbn1/14_1000180400_CC_v3_6_2_AR25_20i_00_000.flat.root"); WhichName.push_back("AR25");
 
 	//WhichSample.push_back("/pnfs/sbnd/persistent/users/apapadop/GENIETweakedSamples/v3_6_2_AR23_32i_00_000_liang_bugfix_microboone/14_1000180400_CC_v3_6_2_AR23_32i_00_000.flat.root"); WhichName.push_back("AR23_LQCD");
 	//WhichSample.push_back("/pnfs/sbnd/persistent/users/apapadop/GENIETweakedSamples/v3_6_2_AR23_31i_00_000_liang_bugfix_microboone/14_1000180400_CC_v3_6_2_AR23_31i_00_000.flat.root"); WhichName.push_back("AR23_Minerva");

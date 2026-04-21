@@ -149,7 +149,7 @@ void overlay_data_mc_xsec() {
 		
 		//----------------------------------------//
 
-		leg.at(iplot) = new TLegend(0.17,0.88,0.95,0.98);
+		leg.at(iplot) = new TLegend(0.18,0.88,0.95,0.98);
 		leg.at(iplot)->SetBorderSize(0);
 		leg.at(iplot)->SetTextSize(text_size);
 		leg.at(iplot)->SetTextFont(text_font);
@@ -163,6 +163,7 @@ void overlay_data_mc_xsec() {
 		double MaxValue = data_plot.at(iplot)->GetMaximum();
 		double MinValue = data_plot.at(iplot)->GetMinimum();
 		data_plot.at(iplot)->SetMinimum(0.);
+		data_plot.at(iplot)->SetMaximum(1.4*MaxValue);		
 
 		data_plot.at(iplot)->GetXaxis()->SetTitle(xlabel);		
 		data_plot.at(iplot)->GetXaxis()->SetTitleFont(text_font);			
@@ -300,8 +301,8 @@ void overlay_data_mc_xsec() {
 				//c_trans_mat_ac_ar23.SaveAs("debug_pdf/c_trans_mat_ac_ar23_"+PlotNames[iplot]+".pdf");						
 
 				// Applying the smearing: Cov' = A * Cov^T * A^T
-				//TMatrixD smeared_mat_cov_ar23 = mat_Ac * trans_mat_cov_ar23 * trans_mat_Ac;
-				TMatrixD smeared_mat_cov_ar23 = trans_mat_cov_ar23;	// wrong !!! fix it			
+				TMatrixD smeared_mat_cov_ar23 = mat_Ac * trans_mat_cov_ar23 * trans_mat_Ac;
+				//TMatrixD smeared_mat_cov_ar23 = trans_mat_cov_ar23;	// wrong !!! fix it			
 
 				//TCanvas c_smeared_mat_cov_ar23("c_smeared_mat_cov_ar23", "c_smeared_mat_cov_ar23", 800, 800);
 				//smeared_mat_cov_ar23.Draw("COLZ TEXT");   // COLZ = color map, TEXT = numbers

@@ -85,7 +85,15 @@ TH1D* get_frac_unc_from_cov(TH2D* cov, TH1D* h) {
 
 	TH1D* clone = (TH1D*)h->Clone();
 
-	if (!cov || !h) return clone;
+	if (!cov) {
+
+		cout << "Warning: covariance matrix is null. Returning histogram with zero uncertainties." << endl;
+		return clone;
+	}
+	if (!h) {
+		cout << "Warning: histogram is null. Returning null pointer." << endl;
+		return clone;	
+	}
 
 	int nbins = h->GetNbinsX();
 
@@ -98,6 +106,8 @@ TH1D* get_frac_unc_from_cov(TH2D* cov, TH1D* h) {
 
 		clone->SetBinContent(i, frac_unc);
 		clone->SetBinError(i, 0.);		
+
+cout << "Bin " << i << ": value = " << value << ", error = " << error << ", fractional uncertainty (%) = " << frac_unc << endl << endl;
 
 	}
 

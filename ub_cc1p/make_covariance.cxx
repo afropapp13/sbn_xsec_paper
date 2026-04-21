@@ -228,7 +228,31 @@ void make_covariance() {
 									   cv_plots[iplot]->GetNbinsX(), 0.5, cv_plots[iplot]->GetNbinsX()+0.5,
 									   cv_plots[iplot]->GetNbinsX(), 0.5, cv_plots[iplot]->GetNbinsX()+0.5);		
 
-		tot_covariance.at(iplot)->Reset();  // sets all bin contents (and errors) to 0						   
+		tot_covariance.at(iplot)->Reset();  // sets all bin contents (and errors) to 0	
+		
+		// cv
+
+		cv_plots[iplot]->GetXaxis()->CenterTitle();
+		cv_plots[iplot]->GetXaxis()->SetTitleFont(text_font);
+		cv_plots[iplot]->GetXaxis()->SetTitleSize(text_size);
+		cv_plots[iplot]->GetXaxis()->SetLabelFont(text_font);
+		cv_plots[iplot]->GetXaxis()->SetLabelSize(text_size);
+		cv_plots[iplot]->GetXaxis()->SetNdivisions(6);
+
+		cv_plots[iplot]->GetYaxis()->CenterTitle();
+		cv_plots[iplot]->GetYaxis()->SetTitleFont(text_font);
+		cv_plots[iplot]->GetYaxis()->SetTitleSize(text_size);
+		cv_plots[iplot]->GetYaxis()->SetLabelFont(text_font);
+		cv_plots[iplot]->GetYaxis()->SetLabelSize(text_size);
+		cv_plots[iplot]->GetYaxis()->SetNdivisions(6);
+		cv_plots[iplot]->GetYaxis()->SetTitle("cross section [no bin width division]");			
+
+		cv_plots[iplot]->SetLineWidth(3);			
+		cv_plots[iplot]->SetLineColor(kBlack);
+
+		double max_y = cv_plots[iplot]->GetMaximum() * 1.2;
+		cv_plots[iplot]->SetMaximum( max_y );
+		cv_plots[iplot]->SetMinimum( 0 );		
 
 		// looping over the knobs
 
@@ -253,30 +277,6 @@ void make_covariance() {
 			leg.at(iplot).at(iknob)->SetTextFont(text_font);
 			leg.at(iplot).at(iknob)->SetTextSize(text_size);
 			leg.at(iplot).at(iknob)->SetNColumns(7);			
-
-			// plot cv
-
-			cv_plots[iplot]->GetXaxis()->CenterTitle();
-			cv_plots[iplot]->GetXaxis()->SetTitleFont(text_font);
-			cv_plots[iplot]->GetXaxis()->SetTitleSize(text_size);
-			cv_plots[iplot]->GetXaxis()->SetLabelFont(text_font);
-			cv_plots[iplot]->GetXaxis()->SetLabelSize(text_size);
-			cv_plots[iplot]->GetXaxis()->SetNdivisions(6);
-
-			cv_plots[iplot]->GetYaxis()->CenterTitle();
-			cv_plots[iplot]->GetYaxis()->SetTitleFont(text_font);
-			cv_plots[iplot]->GetYaxis()->SetTitleSize(text_size);
-			cv_plots[iplot]->GetYaxis()->SetLabelFont(text_font);
-			cv_plots[iplot]->GetYaxis()->SetLabelSize(text_size);
-			cv_plots[iplot]->GetYaxis()->SetNdivisions(6);
-			cv_plots[iplot]->GetYaxis()->SetTitle("cross section [no bin width division]");			
-
-			cv_plots[iplot]->SetLineWidth(3);			
-			cv_plots[iplot]->SetLineColor(kBlack);
-
-			double max_y = cv_plots[iplot]->GetMaximum() * 1.01;
-			cv_plots[iplot]->SetMaximum( max_y );
-			cv_plots[iplot]->SetMinimum( 0 );
 
 			cv_plots[iplot]->Draw("hist");
 			leg.at(iplot).at(iknob)->AddEntry(cv_plots[iplot], "CV", "");		
@@ -320,7 +320,7 @@ void make_covariance() {
 					covariance.at(iplot).at(iknob)->Write("covariance_"+knob[iknob]+"_"+plot_names[iplot]);
 					tot_covariance.at(iplot)->Add( covariance.at(iplot).at(iknob) );			
 
-				}
+				} // end of the 1 sigma case
 
 			} // end of the loop over the sigma universes			
 
@@ -330,7 +330,7 @@ void make_covariance() {
 
 			TLatex tex;
 			tex.SetTextFont(text_font);
-			tex.SetTextSize(text_size);			
+			tex.SetTextSize(0.04);			
 			tex.DrawLatexNDC(0.18, 0.83, knob[iknob]);
 
 			// add the uncertainty on the CV
