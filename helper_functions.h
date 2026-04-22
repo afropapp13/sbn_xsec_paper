@@ -84,6 +84,7 @@ void set_unc_from_cov(TH2D* cov, TH1D* h) {
 TH1D* get_frac_unc_from_cov(TH2D* cov, TH1D* h) {
 
 	TH1D* clone = (TH1D*)h->Clone();
+	clone->SetDirectory(0);
 
 	if (!cov) {
 
@@ -107,7 +108,7 @@ TH1D* get_frac_unc_from_cov(TH2D* cov, TH1D* h) {
 		clone->SetBinContent(i, frac_unc);
 		clone->SetBinError(i, 0.);		
 
-cout << "Bin " << i << ": value = " << value << ", error = " << error << ", fractional uncertainty (%) = " << frac_unc << endl << endl;
+		//cout << "helper function Bin " << i << ": value = " << value << ", error = " << error << ", fractional uncertainty (%) = " << frac_unc << endl << endl;
 
 	}
 
